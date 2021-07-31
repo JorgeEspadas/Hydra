@@ -5,6 +5,7 @@ Servicio de backend para el proyecto:
 # Instalacion
  -  Clonar el repositorio
  -  Ejecutar "_**npm i**_" o "_**npm install**_" en la terminal en la raiz del proyecto
+ -  Para correr el proyecto se ejecuta "_**nodemon app.js**_" en la raiz del proyecto (development branch).
 
 # Reglas de repositorio
  -  Todo commit directo a master sera devuelto
