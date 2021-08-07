@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
 });
 
 
-mongoose.connect(process.env.DB_CON, {useUnifiedTopology: true, useNewUrlParser: true}, ()=> console.log('MongoDB conectado!'));
+mongoose.connect(process.env.DB_CON, {useUnifiedTopology: true, useNewUrlParser: true}, ()=> console.log('[SERVER] MongoDB conectado!'));
 
 app.listen(puerto, ()=>{
-    console.log('Server iniciado en puerto: '+puerto);
+    console.log('[SERVER] Server iniciado en puerto: '+puerto);
 });
