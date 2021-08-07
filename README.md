@@ -8,6 +8,7 @@ Servicio de backend para el proyecto:
 
 # Instalacion
  -  Clonar el repositorio
+ -  Iniciar quitar el ".example" del ".env" y configurarlo con los datos propios.
  -  Ejecutar "_**npm i**_" o "_**npm install**_" en la terminal en la raiz del proyecto
  -  Para correr el proyecto se ejecuta "_**nodemon app.js**_" en la raiz del proyecto (development branch).
 
