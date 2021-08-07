@@ -5,9 +5,11 @@ const app = express();
 
 const puerto = process.env.PUERTO;
 const apiRoute = require('./routes/api/api');
+const authRoute = require('./routes/auth/auth');
 
 app.use(express.json());
 app.use('/api', apiRoute);
+app.use('/auth', authRoute);
 
 app.get('/', (req, res) => {
    res.sendFile('./signature.html',{root: __dirname});
