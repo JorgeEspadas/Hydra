@@ -1,3 +1,7 @@
+<p align="center">
+ <img src="https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/37/Logo_Alternativo_3_de_HYDRA.png/revision/latest?cb=20160507161941&path-prefix=es" width="256" height="256">
+ </p>
+
 # Hydra
 Servicio de backend para el proyecto:                 
 "Diagnostico de la situacion actual de la industria del software en la ciudad de San Francisco de Campeche.
