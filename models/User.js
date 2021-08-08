@@ -5,6 +5,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    rol: {
+        type: Number,
+        default: 0
+    },
     password: {
         type: String,
         required: true

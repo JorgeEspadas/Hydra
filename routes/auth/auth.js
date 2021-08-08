@@ -16,6 +16,7 @@ router.post('/signup', async(req,res) => {
     });
 
     try{
+        console.log('[AUTH/SIGNUP] Recibi un request de: '+req.hostname+' con email: '+receivedUser.email);
         const lookup = await User.find({"email":receivedUser.email});
         if(lookup.length<1){
             //no encontramos a nadie con ese email asi que lo vamos a registrar.
@@ -32,6 +33,15 @@ router.post('/signup', async(req,res) => {
                 }
             });
             console.log('[AUTH/SIGNUP] El usuario fue registrado en base de datos.')
+        }else{
+            res.status(200).json({
+                "response" : "BAD",
+                "data" : {
+                    "exception" : {
+                        "message" : "Ya existe un usuario con ese correo."
+                    }
+                }
+            });
         }
     }catch(error){
         res.status(200).json({
