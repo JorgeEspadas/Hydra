@@ -19,7 +19,18 @@ module.exports = function(req,res,next) {
 
     try{
         var verified = jwt.verify(token, process.env.SECRET_KEY);
-        console.log(verified);
+        if(verified.rol == 1){
+            next();
+        }else{
+            res.status(200).json({
+                "response" : "OK",
+                "data" : {
+                    "exception" : {
+                        "message" : "E we tu no tienes permisos perro, saquese"
+                    }
+                }
+            });
+        }
     }catch(error){
         res.status(200).json({
             "response" : "BAD",
