@@ -5,10 +5,10 @@ const AdminValidation = require('../../middleware/AdminValidation');
 
 router.get('/', AdminValidation, async(req,res) =>{
     res.status(200).json({
-        "response" : "BAD",
+        "response" : "OK",
         "data" : {
             "exception" : {
-                "message" : "Try again."
+                "message" : "Administrator Page"
             }
         }
     });

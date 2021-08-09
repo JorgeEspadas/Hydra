@@ -1,0 +1,7 @@
+{
+    "tipo" : "modulos",
+    "configuracion" : {
+        "principal" : true,
+        "administrador" : true
+    }
+}

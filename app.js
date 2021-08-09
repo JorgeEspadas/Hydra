@@ -17,7 +17,6 @@ app.get('/', (req, res) => {
    res.sendFile('./signature.html',{root: __dirname});
 });
 
-
 mongoose.connect(process.env.DB_CON, {useUnifiedTopology: true, useNewUrlParser: true}, ()=> console.log('[SERVER] MongoDB conectado!'));
 
 app.listen(puerto, ()=>{
