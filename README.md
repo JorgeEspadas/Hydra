@@ -1,9 +1,14 @@
+<p align="center">
+ <img src="https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/37/Logo_Alternativo_3_de_HYDRA.png/revision/latest?cb=20160507161941&path-prefix=es" width="256" height="256">
+ </p>
+
 # Hydra
 Servicio de backend para el proyecto:                 
 "Diagnostico de la situacion actual de la industria del software en la ciudad de San Francisco de Campeche.
 
 # Instalacion
  -  Clonar el repositorio
+ -  Iniciar quitar el ".example" del ".env" y configurarlo con los datos propios.
  -  Ejecutar "_**npm i**_" o "_**npm install**_" en la terminal en la raiz del proyecto
  -  Para correr el proyecto se ejecuta "_**nodemon app.js**_" en la raiz del proyecto (development branch).
 
