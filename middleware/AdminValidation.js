@@ -23,7 +23,7 @@ module.exports = function(req,res,next) {
             next();
         }else{
             res.status(200).json({
-                "response" : "OK",
+                "response" : "BAD",
                 "data" : {
                     "exception" : {
                         "message" : "E we tu no tienes permisos perro, saquese"
