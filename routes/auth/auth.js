@@ -36,7 +36,7 @@ router.post('/login', async (req,res) => {
                     //creamos el nuevo token y lo guardamos
                     jwt.sign(loginObject,secretKey, async (err, token) => {
                         await User.updateOne({"email" : lookup[0].toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
-                            console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un problema al guardar el token... '+err);
+                            console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un probl6ema al guardar el token... '+err);
                             res.status(200).json({
                                 "response" : "OK",
                                 "data" : {
