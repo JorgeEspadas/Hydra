@@ -2,6 +2,7 @@ const express = require('express');
 const verifyToken = require('../../middleware/TokenValidation');
 const router = express.Router();
 const Config = require('../../models/Config');
+const publicRoute = require('./public')
 
 router.get('/', verifyToken, (req, res) =>{
     res.status(200).json({
@@ -19,5 +20,7 @@ router.get('/config/modulos', async (req,res) =>{
         }
     });
 });
+
+router.use('/public', publicRoute);
 
 module.exports = router;

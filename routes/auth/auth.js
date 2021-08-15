@@ -4,6 +4,7 @@ const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
 const crypto = require('js-sha512');
+const responseHandler = require('../../util/web_responses');
 
 router.post('/login', async (req,res) => {
     // metodo para loguear.
@@ -38,45 +39,19 @@ router.post('/login', async (req,res) => {
                         await User.updateOne({"email" : lookup[0].toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
                             console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un problema al guardar el token... '+err);
                             if(!err){
-                                res.status(200).json({
-                                    "response" : "OK",
-                                    "data" : {
-                                        "token" : token,
-                                        "rol" : loginObject.rol
-                                    }
-                                });
+                                res.status(200).json(responseHandler.validResponse({"token" : token,"rol" : loginObject.rol}));
                             }else{
-                                res.status(200).json({
-                                    "response" : "BAD",
-                                    "data" : {
-                                        "exception" : {
-                                            "message" : err
-                                        }
-                                    }
-                                });
+                                res.status(200).json(responseHandler.errorResponse(err));
                             }
                         }); 
                     });
                 }else{
-                    res.status(200).json({
-                        "response" : "OK",
-                        "data" : {
-                            "token" : lookup[0].toObject().token,
-                            "rol" : lookup[0].toObject().rol
-                        }
-                    });
+                    res.status(200).json(responseHandler.validResponse({"token" : lookup[0].toObject().token,"rol" : lookup[0].toObject().rol}));
                 }
             }
         }
     }catch(error){
-        res.status(200).json({
-            "response" : "BAD",
-            "data" : {
-                "exception" : {
-                    "message" : error
-                }
-            }
-        });
+        res.status(200).json(responseHandler.errorResponse(error));
     }
 });
 
@@ -115,38 +90,18 @@ router.post('/signup', async(req,res) => {
             await user.save();
 
             //Si paso la operacion de arriba mando el status 200 y genero la respuesta con la devolucion del token y el rol.
-            res.status(200).json({
-                "response" : "OK",
-                "data" : {
-                    "token" : user.token,
-                    "rol" : user.rol
-                }
-            });
+            res.status(200).json(responseHandler.validResponse({"token" : user.token,"rol" : user.rol}));
             console.log('[AUTH/SIGNUP] El usuario fue registrado en base de datos...')
         }else{
             // Si en alguna parte la operacion de registro falla, regresaremos esta respuesta generica al front
             // Donde le decimos que el status es 200 (que si sirve el backend), pero que el tipo de respuesta es "BAD"
             // Donde significa que algo fallo en el proceso y procedemos a retornar el cuerpo de data con un mensaje dentro de su llave "exception"
             console.log('[AUTH/SIGNUP] Ya existe un usuario registrado con ese correo, retornando exception...')
-            res.status(200).json({
-                "response" : "BAD",
-                "data" : {
-                    "exception" : {
-                        "message" : "Ya existe un usuario con ese correo."
-                    }
-                }
-            });
+            res.status(200).json(responseHandler.errorResponse("Ya existe un usuario con ese nombre"));
         }
     }catch(error){
         // Lo mismo que el texto largo de arriba, si algo falla retornamos el error al front.
-        res.status(200).json({
-            "response" : "BAD",
-            "data" : {
-                "exception" : {
-                    "message" : error
-                }
-            }
-        });
+        res.status(200).json(responseHandler.errorResponse(error));
     }
 });
 
