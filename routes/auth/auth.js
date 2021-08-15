@@ -36,20 +36,33 @@ router.post('/login', async (req,res) => {
                     //creamos el nuevo token y lo guardamos
                     jwt.sign(loginObject,secretKey, async (err, token) => {
                         await User.updateOne({"email" : lookup[0].toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
-                            console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un probl6ema al guardar el token... '+err);
-                            res.status(200).json({
-                                "response" : "OK",
-                                "data" : {
-                                    "token" : token
-                                }
-                            });
+                            console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un problema al guardar el token... '+err);
+                            if(!err){
+                                res.status(200).json({
+                                    "response" : "OK",
+                                    "data" : {
+                                        "token" : token,
+                                        "rol" : loginObject.rol
+                                    }
+                                });
+                            }else{
+                                res.status(200).json({
+                                    "response" : "BAD",
+                                    "data" : {
+                                        "exception" : {
+                                            "message" : err
+                                        }
+                                    }
+                                });
+                            }
                         }); 
                     });
                 }else{
                     res.status(200).json({
                         "response" : "OK",
                         "data" : {
-                            "token" : lookup[0].toObject().token
+                            "token" : lookup[0].toObject().token,
+                            "rol" : lookup[0].toObject().rol
                         }
                     });
                 }
@@ -87,24 +100,33 @@ router.post('/signup', async(req,res) => {
             var currentUnEncryptedPassword =  user.password;
             user.password = crypto.sha512.hmac(secretKey, currentUnEncryptedPassword);
 
+            //Este es el cuerpo que encriptara el JWT.
             var encryptedObject = {
                 email: user.email,
                 rol: user.rol
             };
 
+            // Encriptacion de JWT con el objeto anterior, usando la secretKey (este token NO CADUCA, y es unico por usuario.)
             jwt.sign(encryptedObject,secretKey, (err, token) =>{
                 user.token = token;
             });
 
+            // Guardo el modelo del usuario en base de datos. (almenos lo intento. :v)
             await user.save();
+
+            //Si paso la operacion de arriba mando el status 200 y genero la respuesta con la devolucion del token y el rol.
             res.status(200).json({
                 "response" : "OK",
                 "data" : {
-                    "token" : user.token
+                    "token" : user.token,
+                    "rol" : user.rol
                 }
             });
             console.log('[AUTH/SIGNUP] El usuario fue registrado en base de datos.')
         }else{
+            // Si en alguna parte la operacion de registro falla, regresaremos esta respuesta generica al front
+            // Donde le decimos que el status es 200 (que si sirve el backend), pero que el tipo de respuesta es "BAD"
+            // Donde significa que algo fallo en el proceso y procedemos a retornar el cuerpo de data con un mensaje dentro de su llave "exception"
             res.status(200).json({
                 "response" : "BAD",
                 "data" : {
@@ -115,6 +137,7 @@ router.post('/signup', async(req,res) => {
             });
         }
     }catch(error){
+        // Lo mismo que el texto largo de arriba, si algo falla retornamos el error al front.
         res.status(200).json({
             "response" : "BAD",
             "data" : {
