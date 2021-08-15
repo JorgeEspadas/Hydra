@@ -2,19 +2,13 @@
 // es el correcto.
 
 const jwt = require('jsonwebtoken');
+const responseHandler = require('../util/web_responses');
 
 module.exports = function(req,res,next) {
     const token = req.header('auth-token');
 
     if(!token) {
-        return res.status(200).json({
-            "response" : "BAD",
-            "data" : {
-                "exception" : {
-                    "message" : "Inicia tu sesion en el sistema primero."
-                }
-            }
-        });
+        return res.status(200).json(responseHandler.errorResponse("Inicia sesion en el sistema"));
     }
 
     try{
@@ -22,23 +16,10 @@ module.exports = function(req,res,next) {
         if(verified.rol == 1){
             next();
         }else{
-            res.status(200).json({
-                "response" : "BAD",
-                "data" : {
-                    "exception" : {
-                        "message" : "E we tu no tienes permisos perro, saquese"
-                    }
-                }
-            });
+            res.status(200).json(responseHandler.errorResponse('No tienes permisos para ver esta pagina.'));
         }
     }catch(error){
-        res.status(200).json({
-            "response" : "BAD",
-            "data" : {
-                "exception" : {
-                    "message" : error
-                }
-            }
-        });
+        console.log('[ADMIN_VALIDATOR] Hubo un error desconocido: '+error);
+        res.status(200).json(responseHandler.errorResponse(error)); // no se que error puede retornar asi que retorno el error tal cual.
     }
 }

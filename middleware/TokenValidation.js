@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const responseHandler = require('../util/web_responses');
 
 /**
  * Middleware de verificacion del token para validar peticiones a la API por usuarios completamente validos.
@@ -11,14 +12,7 @@ module.exports = function(req,res,next){
 
     const token = req.header('auth-token');
     if(!token) {
-        return res.status(200).json({
-            "response" : "BAD",
-            "data" : {
-                "exception" : {
-                    "message" : "Inicia tu sesion en el sistema primero."
-                }
-            }
-        });
+        return res.status(200).json(responseHandler.errorResponse('Inicia sesion en el sistema primero.'));
     }
 
     try{
@@ -26,13 +20,7 @@ module.exports = function(req,res,next){
         req.user = verificacion;
         next();
     }catch(err){
-        res.status(200).json({
-            "response" : "BAD",
-            "data" : {
-                "exception" : {
-                    "message" : "Tu token no es valido, reingresa al sistema."
-                }
-            }
-        });
+        console.log('[USER_VALIDATION] Hubo un error desconocido: '+err);
+        res.status(200).json(responseHandler.errorResponse(err));
     }
 }
