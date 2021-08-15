@@ -89,7 +89,7 @@ router.post('/signup', async(req,res) => {
     });
 
     try{
-        console.log('[AUTH/SIGNUP] Recibi un request de: '+req.hostname+' con email: '+user.email);
+        console.log('[AUTH/SIGNUP] Recibi un request de registro de: '+req.hostname+' con email: '+user.email);
         var lookup = await User.find({"email":user.email});
         if(lookup.length<1){
             //no encontramos a nadie con ese email asi que lo vamos a registrar.
@@ -122,11 +122,12 @@ router.post('/signup', async(req,res) => {
                     "rol" : user.rol
                 }
             });
-            console.log('[AUTH/SIGNUP] El usuario fue registrado en base de datos.')
+            console.log('[AUTH/SIGNUP] El usuario fue registrado en base de datos...')
         }else{
             // Si en alguna parte la operacion de registro falla, regresaremos esta respuesta generica al front
             // Donde le decimos que el status es 200 (que si sirve el backend), pero que el tipo de respuesta es "BAD"
             // Donde significa que algo fallo en el proceso y procedemos a retornar el cuerpo de data con un mensaje dentro de su llave "exception"
+            console.log('[AUTH/SIGNUP] Ya existe un usuario registrado con ese correo, retornando exception...')
             res.status(200).json({
                 "response" : "BAD",
                 "data" : {
