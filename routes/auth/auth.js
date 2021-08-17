@@ -101,7 +101,7 @@ router.post('/signup', async(req,res) => {
         email: req.body.email,
         password: crypto.sha512.hmac(cryptoKey, req.body.password),
         telefono: req.body.telefono,
-        rol: (req.body.rol) ? req.body.rol : 0
+        rol: 0
     });
 
     try{
