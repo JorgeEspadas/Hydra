@@ -5,13 +5,11 @@ function validResponse(payload){
     }
 }
 
-function errorResponse(message) {
+function errorResponse(payload) {
     return {
         "response":"BAD",
         "data" : {
-            "exception" : {
-                "message" : message
-            }
+            "exception" : payload
         }
     }
 }
