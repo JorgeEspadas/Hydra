@@ -10,7 +10,7 @@ router.get('/', verifyToken, (req, res) =>{
     });
 });
 
-router.get('/config/modulos', async (req,res) =>{
+router.get('/config/modulos', verifyToken ,async (req,res) =>{
     var query = await Config.find({"tipo":"modulos"});
     var config = query[0].configuracion;
     res.status(200).json({
