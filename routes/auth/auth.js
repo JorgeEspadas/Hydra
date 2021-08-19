@@ -86,7 +86,12 @@ router.post('/login', async (req,res) => {
                         });
                     }
                 }
+            }else{
+                //tu password esta MAL. alv
+                res.status(200).json(responseHandler.errorResponse({"message":"Tu contrasena no coincide."}));
             }
+        }else{
+            res.status(200).json(responseHandler.errorResponse({"message":"No encontre ninguna cuenta con ese correo!"}));
         }
     }catch(error){
         res.status(200).json(responseHandler.errorResponse({"message" : error}));
@@ -101,7 +106,7 @@ router.post('/signup', async(req,res) => {
         email: req.body.email,
         password: crypto.sha512.hmac(cryptoKey, req.body.password),
         telefono: req.body.telefono,
-        rol: 0
+        rol: 0 // 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
     });
 
     try{
@@ -110,7 +115,7 @@ router.post('/signup', async(req,res) => {
         if(lookup.length<1){
             let date = time.utc();
             let future = date.clone().add(expiryTime,'days');
-            //no encontramos a nadie con ese email asi que lo vamos a registrar.
+            //no encontramos a nadie con ese email asi que lo vamos a rgistrar.
             console.log('[AUTH/SIGNUP] No encontre a nadie con el email: '+user.email+', registrando...');
             console.log('[AUTH/SIGNUP] Fecha/Hora Actual: '+date.format());
             console.log('[AUTH/SIGNUP] Fecha de expiracion del token: '+future.format());

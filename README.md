@@ -6,6 +6,12 @@
 Servicio de backend para el proyecto:                 
 "Diagnostico de la situacion actual de la industria del software en la ciudad de San Francisco de Campeche.
 
+# Roles
+ - 0: Publico
+ - 1: IES
+ - 2: Empresa
+ - 3: Admin
+
 # Instalacion
  -  Clonar el repositorio
  -  Iniciar quitar el ".example" del ".env" y configurarlo con los datos propios.
