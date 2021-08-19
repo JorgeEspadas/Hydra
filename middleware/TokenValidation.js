@@ -9,8 +9,6 @@ const time = require('moment');
  */
 
 module.exports = function(req,res,next){
-    console.log('[/API] REQ FROM: '+req.hostname);
-
     const token = req.header('auth-token');
     if(!token) {
         return res.status(200).json(responseHandler.errorResponse('Inicia sesion en el sistema primero.'));
@@ -22,7 +20,6 @@ module.exports = function(req,res,next){
 
         var verificacion = jwt.verify(token, process.env.TOKEN_KEY);
         var tokenTime = time(verificacion.cad);
-        console.log(verificacion)
         //Validar que le quede tiempo.
         if(threshold.isBefore(tokenTime)){
             //Le queda 1 dia, asi que lo dejamos pasar.
@@ -34,7 +31,6 @@ module.exports = function(req,res,next){
             res.status(200).json(responseHandler.errorResponse({"action" : "login", "message":"El token ha expirado, porfavor inicia sesion de nuevo."}));
         }
     }catch(err){
-        console.log('[USER_VALIDATION] Hubo un error desconocido: '+err);
         res.status(200).json(responseHandler.errorResponse(err));
     }
 }
