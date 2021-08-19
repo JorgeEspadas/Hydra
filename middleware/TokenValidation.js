@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
+const time = require('moment');
 
 /**
  * Middleware de verificacion del token para validar peticiones a la API por usuarios completamente validos.
@@ -16,9 +17,22 @@ module.exports = function(req,res,next){
     }
 
     try{
-        const verificacion = jwt.verify(token, process.env.SECRET_KEY);
-        req.user = verificacion;
-        next();
+        var today = time();
+        var threshold = today.clone().add(1, 'days');
+
+        var verificacion = jwt.verify(token, process.env.TOKEN_KEY);
+        var tokenTime = time(verificacion.cad);
+        console.log(verificacion)
+        //Validar que le quede tiempo.
+        if(threshold.isBefore(tokenTime)){
+            //Le queda 1 dia, asi que lo dejamos pasar.
+            req.user = verificacion;
+            next();
+        }else{
+            //No le queda un dia
+            //Le pedimos al back que le haga un relog.
+            res.status(200).json(responseHandler.errorResponse({"action" : "login", "message":"El token ha expirado, porfavor inicia sesion de nuevo."}));
+        }
     }catch(err){
         console.log('[USER_VALIDATION] Hubo un error desconocido: '+err);
         res.status(200).json(responseHandler.errorResponse(err));
