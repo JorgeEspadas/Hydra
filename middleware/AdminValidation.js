@@ -15,12 +15,13 @@ module.exports = function(req,res,next) {
     }
 
     try{
-        var verified = jwt.verify(token, process.env.SECRET_KEY);
+        var verified = jwt.verify(token, process.env.TOKEN_KEY);
         var today = time();
         var threshold = today.clone().add(1, 'days');
+        var tokenTime = time(verified.cad);
 
         if(verified.rol == 1){
-            if(threshold.isBefore(today)){
+            if(threshold.isBefore(tokenTime)){
                 req.user = verified;
                 next();
             }else{

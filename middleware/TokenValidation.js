@@ -21,8 +21,10 @@ module.exports = function(req,res,next){
         var threshold = today.clone().add(1, 'days');
 
         var verificacion = jwt.verify(token, process.env.TOKEN_KEY);
+        var tokenTime = time(verificacion.cad);
+        console.log(verificacion)
         //Validar que le quede tiempo.
-        if(threshold.isBefore(today)){
+        if(threshold.isBefore(tokenTime)){
             //Le queda 1 dia, asi que lo dejamos pasar.
             req.user = verificacion;
             next();
