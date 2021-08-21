@@ -1,0 +1,1 @@
+// Modelo de coleccion de Empresas (es el modelo de 1 pregunta)
