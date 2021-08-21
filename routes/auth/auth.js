@@ -78,7 +78,7 @@ router.post('/login', async (req,res) => {
                             await User.updateOne({"email" : lookup[0].toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
                                 console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un problema al guardar el token... '+err);
                                 if(!err){
-                                    res.status(200).json(responseHandler.validResponse({"token" : token,"rol" : loginObject.rol}));
+                                    res.status(200).json(responseHandler.validResponse({"token" : token,"rol" : encryptedObject.rol}));
                                 }else{
                                     res.status(200).json(responseHandler.errorResponse({"message" : err}));
                                 }
