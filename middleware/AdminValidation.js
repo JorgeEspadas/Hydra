@@ -6,9 +6,16 @@
 const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
 const time = require('moment');
+const DEV_MODE = process.env.DEV_MODE;
+const log = require('../util/log');
 
 module.exports = function(req,res,next) {
     const token = req.header('auth-token');
+
+    if(DEV_MODE) {
+        log.warning('[ADMIN]', 'Saltada la validacion de administrador');
+        return next();
+    } // hace skip a la validacion de admin si esta encendido.
 
     if(!token) {
         return res.status(200).json(responseHandler.errorResponse("Inicia sesion en el sistema"));
@@ -31,7 +38,7 @@ module.exports = function(req,res,next) {
             res.status(200).json(responseHandler.errorResponse('No tienes permisos para ver esta pagina.'));
         }
     }catch(error){
-        console.log('[ADMIN_VALIDATOR] Hubo un error desconocido: '+error);
+        log.error('[ADMIN] Hubo un error desconocido: '+error);
         res.status(200).json(responseHandler.errorResponse(error)); // no se que error puede retornar asi que retorno el error tal cual.
     }
 }

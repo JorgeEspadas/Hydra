@@ -1,7 +1,25 @@
 {
-    "tipo" : "modulos",
-    "configuracion" : {
-        "principal" : true,
-        "administrador" : true
+    "response" : "OK",
+    "data" : {
+        "preguntas" : [
+            {
+                "id" : "empresas_68",
+                "pregunta" : "blablabla",
+                "tipo" : "multiple",
+                "multiples" : true,
+                "respuestas" : [
+                    {
+                        "id_respuesta" : 1,
+                        "texto" : "blablarespuesta",
+                        "siguiente" : "empresas_69"
+                    },
+                    {
+                        "id_respuesta" : 2,
+                        "texto" : "blablarespuesta2"
+                    }
+                ],
+                "siguiente" : "empresas_70"
+            }
+        ]
     }
 }

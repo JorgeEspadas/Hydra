@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: system-ui;
+            background: #3743AA;
+            color: white;
+            text-align: center;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            right: 0;
+            left: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a id="link" href="https://www.google.com/?hl=es">👻</a>
+    </div>
+</body>
+<script>
+    const $link = document.getElementsByTagName("a")[0];
+
+    $link.style.fontSize = "6vw";
+    $link.style.backgroundColor = "#3743AA";
+    $link.style.borderColor = "#3743AA";
+    $link.style.borderWidth = "0px";
+    $link.style.cursor = "pointer";
+
+
+    $link.addEventListener("click", (event) => {
+        event.preventDefault();
+        location.replace("innovation://support/onboarding");
+    });
+
+</script>
+
+</html>

@@ -9,6 +9,8 @@ const time = require('moment');
 const crypto = require('js-sha512');
 const responseHandler = require('../../util/web_responses');
 
+//AGREGAR VALIDACIONES.
+
 router.post('/login', async (req,res) => {
     //Creamos un objeto del modelo de User, para absolutamente nada mas que tener las variables :v
     //Creo que esto ni es necesario, ya que no lo uso.
@@ -34,6 +36,7 @@ router.post('/login', async (req,res) => {
                     // Si el usuario no tiene token, firmamos uno nuevo, crack.
                     let future = today.clone().add(expiryTime, 'days');
                     var encryptedObject = {
+                        nombre: lookup[0].toObject().nombre,
                         email: lookup[0].toObject().email,
                         rol: lookup[0].toObject().rol,
                         cad: future.format()
@@ -43,7 +46,11 @@ router.post('/login', async (req,res) => {
                         await User.updateOne({"email" : lookup[0].toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
                             console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un problema al guardar el token... '+err);
                             if(!err){
-                                res.status(200).json(responseHandler.validResponse({"token" : token,"rol" : encryptedObject.rol}));
+                                res.status(200).json(responseHandler.validResponse({
+                                    "nombre" : encryptedObject.nombre,
+                                    "token" : token,
+                                    "rol" : encryptedObject.rol
+                                }));
                             }else{
                                 res.status(200).json(responseHandler.errorResponse({"message" : err}));
                             }
@@ -69,6 +76,7 @@ router.post('/login', async (req,res) => {
                         console.log('[AUTH/LOGIN] El token no cuenta con mas de 1 dia por lo que ha sido regenerado.');
                         let future = today.clone().add(expiryTime, 'days');
                         var encryptedObject = {
+                            nombre: lookup[0].toObject().nombre,
                             email: lookup[0].toObject().email,
                             rol: lookup[0].toObject().rol,
                             cad: future.format()
@@ -78,7 +86,11 @@ router.post('/login', async (req,res) => {
                             await User.updateOne({"email" : lookup[0].toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
                                 console.log((!err) ? '[AUTH/LOGIN] Token revalidado y guardado!' : '[AUTH/LOGIN] Hubo un problema al guardar el token... '+err);
                                 if(!err){
-                                    res.status(200).json(responseHandler.validResponse({"token" : token,"rol" : encryptedObject.rol}));
+                                    res.status(200).json(responseHandler.validResponse({
+                                        "nombre" : encryptedObject.nombre,
+                                        "token" : token,
+                                        "rol" : encryptedObject.rol
+                                    }));
                                 }else{
                                     res.status(200).json(responseHandler.errorResponse({"message" : err}));
                                 }
@@ -103,6 +115,7 @@ router.post('/login', async (req,res) => {
 //Probablemente se migre este pedazo de codigo a otro endpoint en el futuro, por ahora es /auth/signup.
 router.post('/signup', async(req,res) => {
     const user = new User({
+        nombre: req.body.nombre,
         email: req.body.email,
         password: crypto.sha512.hmac(cryptoKey, req.body.password),
         telefono: req.body.telefono,
@@ -122,6 +135,7 @@ router.post('/signup', async(req,res) => {
             
             //Este es el cuerpo que encriptara el JWT.
             var encryptedObject = {
+                nombre: user.nombre,
                 email: user.email,
                 rol: user.rol,
                 cad: future.format()
@@ -139,7 +153,10 @@ router.post('/signup', async(req,res) => {
             await user.save();
 
             //Si paso la operacion de arriba mando el status 200 y genero la respuesta con la devolucion del token y el rol.
-            res.status(200).json(responseHandler.validResponse({"token" : user.token,"rol" : user.rol}));
+            res.status(200).json(responseHandler.validResponse({
+                "token" : user.token,
+                "rol" : user.rol
+            }));
             console.log('[AUTH/SIGNUP] El usuario fue registrado en base de datos...')
         }else{
             // Si en alguna parte la operacion de registro falla, regresaremos esta respuesta generica al front

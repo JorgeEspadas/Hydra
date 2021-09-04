@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
 const time = require('moment');
+const DEV_MODE = process.env.DEV_MODE;
+const log = require('../util/log');
 
 /**
  * Middleware de verificacion del token para validar peticiones a la API por usuarios completamente validos.
@@ -10,6 +12,12 @@ const time = require('moment');
 
 module.exports = function(req,res,next){
     const token = req.header('auth-token');
+
+    if(DEV_MODE){
+        log.warning('[TOKEN]','Saltada la validacion de token ');
+        return next();
+    }
+
     if(!token) {
         return res.status(200).json(responseHandler.errorResponse('Inicia sesion en el sistema primero.'));
     }
@@ -31,6 +39,7 @@ module.exports = function(req,res,next){
             res.status(200).json(responseHandler.errorResponse({"action" : "login", "message":"El token ha expirado, porfavor inicia sesion de nuevo."}));
         }
     }catch(err){
+        log.error('[TOKEN] Hubo un error en validacion de token: '+err);
         res.status(200).json(responseHandler.errorResponse(err));
     }
 }
