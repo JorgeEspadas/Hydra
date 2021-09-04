@@ -4,6 +4,7 @@ const PreguntaSchema = mongoose.Schema({
     id_pregunta: {
         type: String,
         required: true,
+        unique: true
     },
     texto: {
         type: String,
@@ -12,6 +13,14 @@ const PreguntaSchema = mongoose.Schema({
     tipo: {
         type: String,
         required: true
+    },
+    modulo : {
+        type: String,
+        required: true
+    },
+    multiples: {
+        type: Boolean,
+        default: false
     },
     respuestas : [
         {
@@ -30,9 +39,8 @@ const PreguntaSchema = mongoose.Schema({
         }
     ],
     siguiente: {
-        type: String,
-        required: true,
-        default: null
+        type: String, // si no tiene ninguna liga se defaultea a null
+        default: null // esto es peligroso y debe ser tratado en frontend*
     }
 });
 

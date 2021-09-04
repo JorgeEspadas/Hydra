@@ -4,8 +4,9 @@
         "preguntas" : [
             {
                 "id" : "empresas_68",
-                "pregunta" : "blablabla",
-                "tipo" : "multiple",
+                "tipo" : "Empresa || IES",
+                "texto" : "blablabla",
+                "modulo" : "multiple",
                 "multiples" : true,
                 "respuestas" : [
                     {
