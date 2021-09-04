@@ -13,7 +13,7 @@ module.exports = function(req,res,next) {
     const token = req.header('auth-token');
 
     if(DEV_MODE) {
-        log.warning('[ADMIN]', 'Saltada la validacion de administrador');
+        log.warning('ADMIN', 'Saltada la validacion de administrador');
         return next();
     } // hace skip a la validacion de admin si esta encendido.
 

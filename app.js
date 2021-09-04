@@ -26,10 +26,10 @@ app.get('/deeplink', (req,res) => {
     res.sendFile('./deeplink.html', {root: __dirname});
 });
 
-mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true}, ()=> log.normal('[SERVER]', 'MongoDB conetado: '+database));
+mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true}, ()=> log.normal('SERVER', 'MongoDB conetado: '+database));
 
 if(dev_mode) log.error('El modo desarrollador esta encendido en el .env, no hay validacion de tokens.');
 
 app.listen(puerto, ()=>{
-    log.normal('[SERVER]','Server iniciado en: '+puerto);
+    log.normal('SERVER','Server iniciado en: '+puerto);
 });

@@ -14,7 +14,7 @@ module.exports = function(req,res,next){
     const token = req.header('auth-token');
 
     if(DEV_MODE){
-        log.warning('[TOKEN]','Saltada la validacion de token ');
+        log.warning('TOKEN','Saltada la validacion de token ');
         return next();
     }
 
