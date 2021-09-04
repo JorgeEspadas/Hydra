@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const log = require('./util/log');
@@ -9,7 +10,6 @@ const dev_mode = process.env.DEV_MODE;
 const apiRoute = require('./routes/api/api');
 const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');
-require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
@@ -25,7 +25,7 @@ app.get('/deeplink', (req,res) => {
     res.sendFile('./deeplink.html', {root: __dirname});
 });
 
-mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, ()=> log.normal('SERVER', 'MongoDB conetado: '+database));
+mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, () => log.normal('SERVER', 'MongoDB conetado: '+database));
 
 if(dev_mode) log.error('El modo desarrollador esta encendido en el .env, no hay validacion de tokens.');
 
