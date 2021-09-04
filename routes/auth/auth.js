@@ -1,16 +1,14 @@
 const express = require('express');
-const router = express.Router();
+const time = require('moment');
 const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
+const crypto = require('js-sha512');
+const responseHandler = require('../../util/web_responses');
+const router = express.Router();
 const log = require('../../util/log');
 const tokenKey = process.env.TOKEN_KEY;
 const cryptoKey = process.env.CRYPTO_KEY;
 const expiryTime = process.env.TOKEN_EXPIRATION_DATE; // EN DIAS!!!
-const time = require('moment');
-const crypto = require('js-sha512');
-const responseHandler = require('../../util/web_responses');
-
-//AGREGAR VALIDACIONES.
 
 router.post('/login', async (req,res) => {
     //Creamos un objeto del modelo de User, para absolutamente nada mas que tener las variables :v
@@ -20,7 +18,6 @@ router.post('/login', async (req,res) => {
         email: req.body.email,
         password: crypto.sha512.hmac(cryptoKey, req.body.password) //obtengo la pass con mi hmac hash.
     });
-
     try{
         var today = time.utc();
         var lookup = await User.find({"email": user.email});
@@ -104,7 +101,6 @@ router.post('/login', async (req,res) => {
     }
 });
 
-
 //Este es un endpoint temporal, ya que no se tendra libertad para crear usuarios nada mas por que si.
 //Probablemente se migre este pedazo de codigo a otro endpoint en el futuro, por ahora es /auth/signup.
 router.post('/signup', async(req,res) => {
@@ -115,7 +111,6 @@ router.post('/signup', async(req,res) => {
         telefono: req.body.telefono,
         rol: 0 // 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
     });
-
     try{
         var lookup = await User.find({"email":user.email});
         if(lookup.length<1){

@@ -1,6 +1,6 @@
+const time = require('moment');
 const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
-const time = require('moment');
 const DEV_MODE = process.env.DEV_MODE;
 const log = require('../util/log');
 

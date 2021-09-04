@@ -1,16 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const log = require('./util/log');
 const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
 const app = express();
-
 const puerto = process.env.PUERTO;
 const database = process.env.DB_CON;
 const dev_mode = process.env.DEV_MODE;
 const apiRoute = require('./routes/api/api');
 const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
