@@ -35,7 +35,11 @@ router.post('/agregar', verifyToken, async (req,res) => {
         log.warning('DATA', 'No se pudo almacenar la pregunta');
         res.status(200).json(responseHandler.errorResponse({message: err}));
     }
+});
 
+router.post('/buscar', verifyToken, async(req,res) =>{
+    //recibimos datos de busqueda, como id_pregunta o tipo para traer 1 resultado, o todos.
+    res.status(200).json(responseHandler.validResponse({message: "no hay nada carnal."}));
 });
 
 module.exports = router;
