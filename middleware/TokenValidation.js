@@ -15,6 +15,9 @@ module.exports = function(req,res,next){
 
     if(DEV_MODE){
         log.warning('TOKEN','Saltada la validacion de token ');
+        req.user = {
+            'email' : 'devmode@observatorio.xyz'
+        };
         return next();
     }
 

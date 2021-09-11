@@ -19,7 +19,7 @@ router.get('/categorias', verifyToken, async(req,res) => {
         var db = await Categoria.find();
         var data = JSON.parse(JSON.stringify(db)); // convierte el documento de 
         for(var i in data){
-            data[i].total = await Pregunta.find({'tipo':data[i].id_categoria}).count();
+            data[i].total = await Pregunta.find({'tipo':data[i].id_categoria}).countDocuments();
         }
         res.status(200).json(responseHandler.validResponse(data));
     }catch(error){
@@ -35,7 +35,7 @@ router.get('/categorias/:id', verifyToken, async(req, res) => {
             throw "No se encontró la categoria que buscas";
         }else{
             var data = JSON.parse(JSON.stringify(category));
-            data.total = await Pregunta.find({'tipo':data.id_categoria}).count();
+            data.total = await Pregunta.find({'tipo':data.id_categoria}).countDocuments();
             res.status(200).json(responseHandler.validResponse(data));
         }
     }catch(error){
@@ -56,6 +56,7 @@ router.post('/categorias/agregar', verifyToken, async(req,res) => {
     }
 });
 
+// localhost/admin/preguntas/agregar
 router.post('/agregar', verifyToken, async (req,res) => {
     const data = new Pregunta({
         id_pregunta: req.body.id_pregunta,

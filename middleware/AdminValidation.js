@@ -14,6 +14,9 @@ module.exports = function(req,res,next) {
 
     if(DEV_MODE) {
         log.warning('ADMIN', 'Saltada la validacion de administrador');
+        req.user = {
+            'email' : 'devmode@observatorio.xyz'
+        };
         return next();
     } // hace skip a la validacion de admin si esta encendido.
 
