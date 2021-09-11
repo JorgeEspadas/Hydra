@@ -7,7 +7,6 @@ const router = express.Router();
 const log = require('../../util/log');
 
 // esta api es para administradores
-
 router.get('/', verifyToken, (req,res) => {
     res.status(200).json({
         message: 'preguntas?'
@@ -24,7 +23,7 @@ router.get('/categorias', verifyToken, async(req,res) => {
     }
 });
 
-// localhost/admin/preguntas/categorias/Empresas
+// localhost/admin/preguntas/categorias/Empresas||IES||LoqueSea
 router.get('/categorias/:id', verifyToken, async(req, res) => {
     try{
         var category = await Categoria.findOne({"id_categoria" : req.params.id});
