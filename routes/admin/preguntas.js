@@ -62,6 +62,7 @@ router.post('/agregar', verifyToken, async (req,res) => {
         id_pregunta: req.body.id_pregunta,
         texto: req.body.texto,
         tipo: req.body.tipo,
+        categoria: req.body.categoria,
         modulo: req.body.modulo,
         multiples: req.body.multiples,
         respuestas: req.body.respuestas,
