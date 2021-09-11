@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
 const time = require('moment');
 const DEV_MODE = process.env.DEV_MODE;
+const ADMIN_ROLE = process.env.ADMIN_ROLE
 const log = require('../util/log');
 
 module.exports = function(req,res,next) {
@@ -30,7 +31,7 @@ module.exports = function(req,res,next) {
         var threshold = today.clone().add(1, 'days');
         var tokenTime = time(verified.cad);
 
-        if(verified.rol == 3){
+        if(verified.rol == ADMIN_ROLE){
             if(threshold.isBefore(tokenTime)){
                 req.user = verified;
                 next();

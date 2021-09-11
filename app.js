@@ -29,6 +29,8 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, use
 
 if(dev_mode) log.error('El modo desarrollador esta encendido en el .env, no hay validacion de tokens y algunas funciones van a fallar.');
 
+console.log(dev_mode);
+
 app.listen(puerto, ()=>{
     log.normal('SERVER','Server iniciado en: '+puerto);
 });
