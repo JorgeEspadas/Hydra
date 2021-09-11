@@ -1,7 +1,6 @@
 const express = require('express');
 const verifyToken = require('../../middleware/AdminValidation');
 const Pregunta = require('../../models/Pregunta');
-const Categoria = require('../../models/Categoria');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 const log = require('../../util/log');

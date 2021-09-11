@@ -1,14 +1,14 @@
 const express = require('express');
 const time = require('moment');
- const User = require('../../models/User');
- const jwt = require('jsonwebtoken');
- const crypto = require('js-sha512');
- const responseHandler = require('../../util/web_responses');
- const router = express.Router();
- const log = require('../../util/log');
- const tokenKey = process.env.TOKEN_KEY;
- const cryptoKey = process.env.CRYPTO_KEY;
- const expiryTime = process.env.TOKEN_EXPIRATION_DATE; // EN DIAS
+const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
+const crypto = require('js-sha512');
+const responseHandler = require('../../util/web_responses');
+const router = express.Router();
+const log = require('../../util/log');
+const tokenKey = process.env.TOKEN_KEY;
+const cryptoKey = process.env.CRYPTO_KEY;
+const expiryTime = process.env.TOKEN_EXPIRATION_DATE; // EN DIAS
 const verifyToken = require('../../middleware/AdminValidation');
 
 // para obtener detalles de una cuenta
