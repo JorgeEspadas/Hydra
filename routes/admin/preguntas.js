@@ -1,6 +1,7 @@
 const express = require('express');
 const verifyToken = require('../../middleware/AdminValidation');
 const Pregunta = require('../../models/Pregunta');
+const Categoria = require('../../models/Categorias');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 const log = require('../../util/log');
@@ -11,6 +12,43 @@ router.get('/', verifyToken, (req,res) => {
     res.status(200).json({
         message: 'preguntas?'
     });
+});
+
+// localhost/admin/preguntas/categorias
+router.get('/categorias', verifyToken, async(req,res) => {
+    try{
+        var data = await Categoria.find();
+        res.status(200).json(responseHandler.validResponse(data));
+    }catch(error){
+        res.status(200).json(responseHandler.errorResponse({message: 'Hubo un problema al obtener la información: '+error.toString()}));
+    }
+});
+
+// localhost/admin/preguntas/categorias/Empresas
+router.get('/categorias/:id', verifyToken, async(req, res) => {
+    try{
+        var category = await Categoria.findOne({"id_categoria" : req.params.id});
+        if(category === null){
+            throw "No se encontró la categoria que buscas";
+        }else{
+            res.status(200).json(responseHandler.validResponse(category));
+        }
+    }catch(error){
+        res.status(200).json(responseHandler.errorResponse({message: error.toString()}));
+    }
+});
+
+router.post('/categorias/agregar', verifyToken, async(req,res) => {
+    try{
+        var data = new Categoria({
+            id_categoria : req.body.id_categoria,
+            categorias : req.body.categorias
+        });
+        await data.save();
+        res.status(200).json(responseHandler.validResponse({message: 'Categoría agregada'}));
+    }catch(error){
+        res.status(200).json(responseHandler.errorResponse({message: 'Hubo un error al agregar tu pregunta: '+error.toString()}));
+    }
 });
 
 router.post('/agregar', verifyToken, async (req,res) => {

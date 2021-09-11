@@ -14,6 +14,10 @@ const PreguntaSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    categoria: {
+        type: String,
+        required: true
+    },
     modulo : {
         type: String,
         required: true

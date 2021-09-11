@@ -27,7 +27,7 @@ module.exports = function(req,res,next) {
         var threshold = today.clone().add(1, 'days');
         var tokenTime = time(verified.cad);
 
-        if(verified.rol == 1){
+        if(verified.rol == 3){
             if(threshold.isBefore(tokenTime)){
                 req.user = verified;
                 next();

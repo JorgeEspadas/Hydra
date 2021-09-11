@@ -61,7 +61,7 @@ router.post('/login', async (req,res) => {
                     if(threshold.isBefore(tokenTime)){
                         //Si estamos aqui es por que le queda 1 dia al usuario, asi que regresaremos el mismo token, aunque eventualmente caiga
                         //en el bloque de abajo (o su token sea borrado por tokenValidation.js / adminValidation.js en caso de ser admin)
-                        res.status(200).json(responseHandler.validResponse({"token":lookup[0].toObject().token,"rol":lookup[0].toObject().rol}));
+                        res.status(200).json(responseHandler.validResponse({"nombre": lookup[0].toObject().nombre,"token":lookup[0].toObject().token,"rol":lookup[0].toObject().rol}));
                     }else{
                         //Si entramos aqui es por que el threshold es mayor, quiere decir que le queda menos de un dia al sujeto
                         //Por lo que generaremos otro token, lo guardamos en base de datos y regresamos el nuevo token.
@@ -104,14 +104,15 @@ router.post('/login', async (req,res) => {
 //Este es un endpoint temporal, ya que no se tendra libertad para crear usuarios nada mas por que si.
 //Probablemente se migre este pedazo de codigo a otro endpoint en el futuro, por ahora es /auth/signup.
 router.post('/signup', async(req,res) => {
-    const user = new User({
-        nombre: req.body.nombre,
-        email: req.body.email,
-        password: crypto.sha512.hmac(cryptoKey, req.body.password),
-        telefono: req.body.telefono,
-        rol: 0 // 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
-    });
     try{
+        const user = new User({
+            nombre: req.body.nombre,
+            email: req.body.email,
+            password: crypto.sha512.hmac(cryptoKey, req.body.password),
+            telefono: req.body.telefono,
+            rol: 2 // 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
+        });
+
         var lookup = await User.find({"email":user.email});
         if(lookup.length<1){
             let date = time.utc();
@@ -152,8 +153,8 @@ router.post('/signup', async(req,res) => {
         }
     }catch(error){
         // Lo mismo que el texto largo de arriba, si algo falla retornamos el error al front.
-        log.warning('AUTH', 'Error desconocido: '+err);
-        res.status(200).json(responseHandler.errorResponse({"message" : error}));
+        log.warning('AUTH', 'Error desconocido: '+error);
+        res.status(200).json(responseHandler.errorResponse({"message" : error.toString()}));
     }
 });
 
