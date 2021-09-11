@@ -16,7 +16,11 @@ router.get('/', verifyToken, (req,res) => {
 // localhost/admin/preguntas/categorias
 router.get('/categorias', verifyToken, async(req,res) => {
     try{
-        var data = await Categoria.find();
+        var db = await Categoria.find();
+        var data = JSON.parse(JSON.stringify(db)); // convierte el documento de 
+        for(var i in data){
+            data[i].total = await Pregunta.find({'tipo':data[i].id_categoria}).count();
+        }
         res.status(200).json(responseHandler.validResponse(data));
     }catch(error){
         res.status(200).json(responseHandler.errorResponse({message: 'Hubo un problema al obtener la información: '+error.toString()}));
@@ -30,7 +34,9 @@ router.get('/categorias/:id', verifyToken, async(req, res) => {
         if(category === null){
             throw "No se encontró la categoria que buscas";
         }else{
-            res.status(200).json(responseHandler.validResponse(category));
+            var data = JSON.parse(JSON.stringify(category));
+            data.total = await Pregunta.find({'tipo':data.id_categoria}).count();
+            res.status(200).json(responseHandler.validResponse(data));
         }
     }catch(error){
         res.status(200).json(responseHandler.errorResponse({message: error.toString()}));
