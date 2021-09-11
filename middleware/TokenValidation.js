@@ -1,7 +1,7 @@
 const time = require('moment');
 const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
-const DEV_MODE = process.env.DEV_MODE;
+const config = require('../util/config');
 const log = require('../util/log');
 
 /**
@@ -13,7 +13,7 @@ const log = require('../util/log');
 module.exports = function(req,res,next){
     const token = req.header('auth-token');
 
-    if(DEV_MODE){
+    if(config.getDevMode()){
         log.warning('TOKEN','Saltada la validacion de token ');
         req.user = {
             'email' : 'devmode@observatorio.xyz'

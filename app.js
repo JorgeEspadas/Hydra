@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const log = require('./util/log');
+const config = require('./util/config');
 const mongoose = require('mongoose');
 const app = express();
 const puerto = process.env.PUERTO;
@@ -27,9 +28,7 @@ app.get('/deeplink', (req,res) => {
 
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, () => log.normal('SERVER', 'MongoDB conetado: '+database));
 
-if(dev_mode) log.error('El modo desarrollador esta encendido en el .env, no hay validacion de tokens y algunas funciones van a fallar.');
-
-console.log(dev_mode);
+if(config.getDevMode()) log.error('El modo desarrollador esta encendido en el .env, no hay validacion de tokens y algunas funciones van a fallar.');
 
 app.listen(puerto, ()=>{
     log.normal('SERVER','Server iniciado en: '+puerto);

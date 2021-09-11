@@ -6,14 +6,14 @@
 const jwt = require('jsonwebtoken');
 const responseHandler = require('../util/web_responses');
 const time = require('moment');
-const DEV_MODE = process.env.DEV_MODE;
+const config = require('../util/config');
 const ADMIN_ROLE = process.env.ADMIN_ROLE
 const log = require('../util/log');
 
 module.exports = function(req,res,next) {
     const token = req.header('auth-token');
 
-    if(DEV_MODE) {
+    if(config.getDevMode()) {
         log.warning('ADMIN', 'Saltada la validacion de administrador');
         req.user = {
             'email' : 'devmode@observatorio.xyz'
