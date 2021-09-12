@@ -6,6 +6,19 @@
 Servicio de backend para el proyecto:                 
 "Diagnostico de la situacion actual de la industria del software en la ciudad de San Francisco de Campeche.
 
+# Endpoints
+ - Publicos
+    - */api/public <- todavía no hay nada, pero bueno.
+
+ - Cuenta
+    - */auth/login
+    - */auth/cuenta <- para modificar contraseña de la cuenta del usuario
+    
+ - Administrador
+    - */admin/preguntas  <- agrega/modifica/borra preguntas
+    - */admin/categorias <- agrega/modifica/borra categorias
+    - */admin/cuentas <- agrega/modifica/borra cuentas.
+
 # Roles
  - 0: Publico
  - 1: IES

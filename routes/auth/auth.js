@@ -1,9 +1,7 @@
 const express = require('express');
-const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 const loginRoute = require('./login');
 const cuentaRoute = require('./cuenta');
-const log = require('../../util/log');
 
 router.use('/login', loginRoute);
 router.use('/cuenta', cuentaRoute);
