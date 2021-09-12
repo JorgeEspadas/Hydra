@@ -14,8 +14,10 @@ router.get('/', verifyToken, (req,res) => {
 
 // POST para agregar. localhost/admin/preguntas
 router.post('/', verifyToken, async (req,res) => {
+    var documentCount = await Pregunta.find({'tipo':req.body.tipo}).countDocuments();
+
     const data = new Pregunta({
-        id_pregunta: req.body.id_pregunta,
+        id_pregunta: req.body.tipo+'_'+(documentCount+1), // :v
         texto: req.body.texto,
         tipo: req.body.tipo,
         categoria: req.body.categoria,
