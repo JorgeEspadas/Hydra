@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const app = express();
 const puerto = process.env.PUERTO;
 const database = process.env.DB_CON;
-const dev_mode = process.env.DEV_MODE;
 const apiRoute = require('./routes/api/api');
 const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');

@@ -46,4 +46,8 @@ router.get('/:id', verifyToken, async(req,res) =>{
     res.status(200).json(responseHandler.validResponse({message: "no hay nada carnal."}));
 });
 
+router.delete('/:id', verifyToken, async(req,res) => {
+
+});
+
 module.exports = router;

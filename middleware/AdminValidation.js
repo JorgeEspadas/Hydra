@@ -32,7 +32,7 @@ module.exports = function(req,res,next) {
         var tokenTime = time(verified.cad);
 
         if(verified.rol == ADMIN_ROLE){
-            if(threshold.isBefore(tokenTime)){
+            if(threshold.isBefore(tokenTime) && !config.isTokenBanned(token)){
                 req.user = verified;
                 next();
             }else{

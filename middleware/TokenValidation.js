@@ -32,13 +32,12 @@ module.exports = function(req,res,next){
         var verificacion = jwt.verify(token, process.env.TOKEN_KEY);
         var tokenTime = time(verificacion.cad);
         //Validar que le quede tiempo.
-        if(threshold.isBefore(tokenTime)){
-            //Le queda 1 dia, asi que lo dejamos pasar.
+        if(threshold.isBefore(tokenTime) && !config.isTokenBanned(token)){
+            //Le queda 1 dia y no ha sido cambiado recientemente (por cache), asi que lo dejamos pasar.
             req.user = verificacion;
             next();
         }else{
-            //No le queda un dia
-            //Le pedimos al back que le haga un relog.
+            //Le pedimos al back que le haga un relog, ya que ese token no sirve mas.
             res.status(200).json(responseHandler.errorResponse({"action" : "login", "message":"El token ha expirado, porfavor inicia sesion de nuevo."}));
         }
     }catch(err){
