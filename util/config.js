@@ -1,8 +1,50 @@
 const DEV_MODE = process.env.DEV_MODE;
+const log = require('./log');
+const NodeCache = require('node-cache');
+const cache = new NodeCache({stdTTL: 86400}); // el cache se reinicia cada 24 horas.
 
 class Config {
-    // pinche javascript toma los .env como strings y aparentemente tengo que hacer esto
-    // para poder saber si el modo dev esta prendido o apagado.
+
+    // acceso a cache, un reinicio al servidor lo truena :v
+    static addToCache(key, value){
+        cache.set(key, value);
+        log.normal('CONFIG', 'Guardados datos en cache');
+    }
+
+    // el nombre del metodo es suficiente.
+    static getFromCache(key){
+        return cache.get(key);
+    }
+
+    // banea un token (aka lo pone en una blacklist almacenada en cache.)
+    static banToken(token){
+        var obj = cache.get('blacklist');
+        if(obj === undefined){
+            var data = [];
+            data.push(token);
+            cache.set('blacklist', data);
+            log.normal('CONFIG', 'Blacklist iniciada.');
+        }else{
+            var array = Array.from(obj);
+            array.push(token);
+            cache.set('blacklist', array);
+            log.normal('CONFIG', 'Blacklist actualizada');
+            console.log(array);
+        }
+    }
+
+    // true si el token esta baneado.
+    static isTokenBanned(token) {
+        var obj = cache.get('blacklist');
+        if(obj === undefined){
+            return false;
+        }else{
+            var array = Array.from(obj);
+            return (array.find(element => element === token) === undefined) ? false : true;
+        }
+    }
+
+    // perdoname dios.
     static getDevMode() {
         return (DEV_MODE === "true") ? true : false;
     }
