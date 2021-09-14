@@ -112,7 +112,7 @@ router.put('/:email', verifyToken, async(req,res) => {
 
 // borrar cuenta (? aun no se sabe si estara esto al final, pero pues se hace de todos modos :v)
 router.delete('/:email', verifyToken, async(req,res) => {
-
+    // TODO: borrar cuentas :v
 });
 
 module.exports = router;

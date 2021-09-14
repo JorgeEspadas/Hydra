@@ -8,7 +8,7 @@ const log = require('../../util/log');
 // esta api es para administradores
 router.get('/', verifyToken, (req,res) => {
     res.status(200).json({
-        message: ''
+        message: 'Regreso todas las preguntas :v'
     });
 });
 
@@ -41,13 +41,21 @@ router.post('/', verifyToken, async (req,res) => {
 });
 
 // GET localhost/admin/preguntas/id  para obtener una especifica.
-router.get('/:id', verifyToken, async(req,res) =>{
+router.get('/:tipo', verifyToken, async(req,res) =>{
     //recibimos datos de busqueda, como id_pregunta o tipo para traer 1 resultado, o todos.
-    res.status(200).json(responseHandler.validResponse({message: "no hay nada carnal."}));
+    res.status(200).json(responseHandler.validResponse({message: "Regreso todas las preguntas de X categoria."}));
 });
 
-router.delete('/:id', verifyToken, async(req,res) => {
+router.get('/editar/:idPregunta', verifyToken, async(req,res) =>{
+   res.status(200).json(responseHandler.validResponse({message: "Información de una pregunta"})); 
+});
 
+router.put('/:idPregunta', verifyToken, async(req,res) =>{
+    res.status(200).json(responseHandler.validResponse({message: 'Actualizar una pregunta.'}));
+});
+
+router.delete('/:idPregunta', verifyToken, async(req,res) => {
+    res.status(200).json(responseHandler.validResponse({message: 'Borrar una pregunta'}));
 });
 
 module.exports = router;

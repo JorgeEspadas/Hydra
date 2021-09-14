@@ -11,6 +11,7 @@
  const responseHandler = require('../../util/web_responses');
  const router = express.Router();
  const log = require('../../util/log');
+ const config = require('../../util/config');
  const tokenKey = process.env.TOKEN_KEY;
  const cryptoKey = process.env.CRYPTO_KEY;
  const expiryTime = process.env.TOKEN_EXPIRATION_DATE; // EN DIAS!!!
@@ -31,8 +32,8 @@
             //El mongo de todas maneras regresa un arreglo de resultados.
             if(user.password == lookup.toObject().password){
                 //Aqui entramos si la password pasada(y encriptada) hace match con la pass guardada en base de datos.
-                if(lookup.toObject().token === null || lookup.toObject().token === ''){
-                    // Si el usuario no tiene token, firmamos uno nuevo, crack.
+                if(lookup.toObject().token === null || lookup.toObject().token === '' || config.isTokenBanned(lookup.toObject().token)){
+                    // Si el usuario no tiene token o esta baneado., firmamos uno nuevo, crack.
                     let future = today.clone().add(expiryTime, 'days');
                     var encryptedObject = {
                         nombre: lookup.toObject().nombre,
@@ -96,10 +97,10 @@
                 }
             }else{
                 //tu password esta MAL. alv
-                res.status(200).json(responseHandler.errorResponse({"message":"Tu contrasena no coincide."}));
+                res.status(200).json(responseHandler.errorResponse({"message":"Tu contraseña o correo no coinciden."}));
             }
         }else{
-            res.status(200).json(responseHandler.errorResponse({"message":"No encontre ninguna cuenta con ese correo!"}));
+            res.status(200).json(responseHandler.errorResponse({"message":"No encontre ninguna cuenta con este correo!"}));
         }
     }catch(error){
         res.status(200).json(responseHandler.errorResponse({"message" : error}));
