@@ -18,7 +18,7 @@ module.exports = function(req,res,next) {
         req.user = {
             'email' : 'devmode@observatorio.xyz'
         };
-        return next();
+        next();
     } // hace skip a la validacion de admin si esta encendido.
 
     if(!token) {
