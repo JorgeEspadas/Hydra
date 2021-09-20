@@ -6,7 +6,7 @@ const config = require('./util/config');
 const mongoose = require('mongoose');
 const app = express();
 const puerto = process.env.PUERTO;
-const database = process.env.DB_CON;
+const database = (config.getDevMode() ? process.env.DB_CON_DEV : process.env.DB_CON_PROD);
 const apiRoute = require('./routes/api/api');
 const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');
@@ -27,7 +27,7 @@ app.get('/deeplink', (req,res) => {
 
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, () => log.normal('SERVER', 'MongoDB conetado: '+database));
 
-if(config.getDevMode()) log.error('El modo desarrollador esta encendido en el .env, no hay validacion de tokens y algunas funciones van a fallar.');
+if(config.getDevMode()) log.error('MODO DESARROLLADOR, CONECTANDO A BASE DE DATOS LOCAL Y SALTANDO VALIDACIONES');
 
 app.listen(puerto, ()=>{
     log.normal('SERVER','Server iniciado en: '+puerto);

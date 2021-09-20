@@ -40,33 +40,13 @@ router.post('/', verifyToken, async(req,res) => {
         var lookup = await User.findOne({"email":user.email});
 
         if(lookup === null){
-            let date = time.utc();
-            let future = date.clone().add(expiryTime,'days');
-            
-            //Este es el cuerpo que encriptara el JWT.
-            var encryptedObject = {
-                nombre: user.nombre,
-                email: user.email,
-                rol: user.rol,
-                cad: future.format()
-            };
-
-            // Encriptacion de JWT con el objeto anterior, usando la secretKey (este token NO CADUCA, y es unico por usuario.)
-            jwt.sign(encryptedObject,tokenKey, (err, token) =>{
-                user.token = token;
-                if(err){
-                    console.log(err);
-                }
-            });
 
             // Guardo el modelo del usuario en base de datos. (almenos lo intento. :v)
             await user.save();
 
             //Si paso la operacion de arriba mando el status 200 y genero la respuesta con la devolucion del token y el rol.
             res.status(200).json(responseHandler.validResponse({
-                "nombre" : user.nombre,
-                "token" : user.token,
-                "rol" : user.rol
+                message: 'Cuenta creada con exito'
             }));
             log.normal('AUTH', 'Usuario registrado con exito.')
         }else{
