@@ -25,11 +25,19 @@ class Config {
             cache.set('blacklist', data);
             log.normal('CONFIG', 'Blacklist iniciada.');
         }else{
-            var array = Array.from(obj);
-            array.push(token);
-            cache.set('blacklist', array);
-            log.normal('CONFIG', 'Blacklist actualizada');
-            console.log(array);
+            try{
+                var array = Array.from(obj);
+                if(array.find(token)!=undefined){
+                    array.push(token);
+                    cache.set('blacklist', array);
+                    log.normal('CONFIG', 'Blacklist actualizada');
+                    console.log(array);
+                }else{
+                    return;
+                }
+            }catch(error){
+                console.log(error.toString());
+            }
         }
     }
 

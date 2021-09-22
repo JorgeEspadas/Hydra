@@ -46,9 +46,7 @@
                         await User.updateOne({"email" : lookup.toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
                             if(!err){
                                 res.status(200).json(responseHandler.validResponse({
-                                    "nombre" : encryptedObject.nombre,
-                                    "token" : token,
-                                    "rol" : encryptedObject.rol
+                                    "token" : token
                                 }));
                             }else{
                                 log.warning('AUTH', 'Error: '+err);
@@ -83,9 +81,7 @@
                             await User.updateOne({"email" : lookup.toObject().email}, {$set: {token : token}},{upsert: true}, function(err) {
                                 if(!err){
                                     res.status(200).json(responseHandler.validResponse({
-                                        "nombre" : encryptedObject.nombre,
-                                        "token" : token,
-                                        "rol" : encryptedObject.rol
+                                        "token" : token
                                     }));
                                 }else{
                                     log.warning('AUTH', 'Error: '+err);

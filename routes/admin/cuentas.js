@@ -87,6 +87,7 @@ router.put('/:email', verifyToken, async(req,res) => {
     var email = req.params.email;
     var mgObject = await User.findOne({'email' : email});
     // tenemos los objetos, hay que comparar si hay cambios antes de blacklistear el token.
+    console.log('rol: '+req.body.rol+', '+mgObject.toObject().rol);
     if(req.body.rol === mgObject.toObject().rol){
         res.status(200).json(responseHandler.validResponse({message: 'No se guardo ningun cambio'}));
     }else{
@@ -95,7 +96,7 @@ router.put('/:email', verifyToken, async(req,res) => {
          * por lo tanto lo primero que debe pasar es que debemos banear el token actual.
          * luego dejarlo vacio en el registro para que el usuario se tenga que reloguear.
          */
-        config.banToken(mgObject.toObject().token); // banea el token actual
+         mgObject.toObject().token != '' ? config.banToken(mgObject.toObject().token) : console.log('already banned'); // banea el token actual
          await User.updateOne({"email" : email}, {$set: {token : '', rol: req.body.rol}},{upsert: true}, function(err) {
             if(!err){
                 // se actualizo el token y el rol del usuario.
