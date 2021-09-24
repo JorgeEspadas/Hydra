@@ -6,10 +6,14 @@ const router = express.Router();
 const log = require('../../util/log');
 
 // esta api es para administradores
-router.get('/', verifyToken, (req,res) => {
-    res.status(200).json({
-        message: 'Regreso todas las preguntas :v'
-    });
+router.get('/', verifyToken, async (req,res) => {
+    try{
+        var db = await Pregunta.find();
+        var data = JSON.parse(JSON.stringify(db));
+        res.status(200).json(responseHandler.validResponse(data));
+    }catch(error){
+        res.status(200).json(responseHandler.errorResponse({message: 'Hubo un problema al obtener la información: '+error.toString()}));
+    }
 });
 
 // POST para agregar. localhost/admin/preguntas
