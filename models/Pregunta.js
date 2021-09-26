@@ -36,6 +36,10 @@ const PreguntaSchema = mongoose.Schema({
                 type: String,
                 required: true
             },
+            abierta: {
+                type: Boolean,
+                default: false
+            },
             siguiente:{
                 type: String, // ID de la pregunta que seguiria, por default null.
                 default: null

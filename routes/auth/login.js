@@ -65,7 +65,7 @@
                     if(threshold.isBefore(tokenTime)){
                         //Si estamos aqui es por que le queda 1 dia al usuario, asi que regresaremos el mismo token, aunque eventualmente caiga
                         //en el bloque de abajo (o su token sea borrado por tokenValidation.js / adminValidation.js en caso de ser admin)
-                        res.status(200).json(responseHandler.validResponse({"nombre": lookup.toObject().nombre,"token":lookup.toObject().token,"rol":lookup.toObject().rol}));
+                        res.status(200).json(responseHandler.validResponse({"token":lookup.toObject().token}));
                     }else{
                         //Si entramos aqui es por que el threshold es mayor, quiere decir que le queda menos de un dia al sujeto
                         //Por lo que generaremos otro token, lo guardamos en base de datos y regresamos el nuevo token.
