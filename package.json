@@ -27,6 +27,6 @@
     "moment": "^2.29.1",
     "mongoose": "^5.13.5",
     "node-cache": "^5.1.2",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.13"
   }
 }
