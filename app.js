@@ -10,10 +10,12 @@ const database = (config.getDevMode() ? process.env.DB_CON_DEV : process.env.DB_
 const apiRoute = require('./routes/api/api');
 const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');
+const usuarioRoute = require('./routes/user/user');
 
 app.use(express.json());
 app.use(cors());
 app.use('/api', apiRoute);
+app.use('/usuario', usuarioRoute);
 app.use('/auth', authRoute);
 app.use('/admin', adminRoute);
 
