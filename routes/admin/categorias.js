@@ -1,12 +1,11 @@
 const express = require('express');
-const verifyToken = require('../../middleware/AdminValidation');
 const Categoria = require('../../models/Categoria');
 const Pregunta = require('../../models/Pregunta');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 
 // get para todas las categorias, localhost/admin/categorias
-router.get('/', verifyToken, async(req,res) => {
+router.get('/', async(req,res) => {
     try{
         var db = await Categoria.find();
         var data = JSON.parse(JSON.stringify(db)); // convierte el documento de 
@@ -20,7 +19,7 @@ router.get('/', verifyToken, async(req,res) => {
 });
 
 // get con id para categoria especifica. localhost/admin/categorias/Empresas||IES||LoqueSea
-router.get('/:id', verifyToken, async(req, res) => {
+router.get('/:id', async(req, res) => {
     try{
         var category = await Categoria.findOne({"id_categoria" : req.params.id});
         if(category === null){
@@ -36,7 +35,7 @@ router.get('/:id', verifyToken, async(req, res) => {
 });
 
 //post a localhost/admin/categorias para agregar categoria.
-router.post('/', verifyToken, async(req,res) => {
+router.post('/', async(req,res) => {
     try{
         var data = new Categoria({
             id_categoria : req.body.id_categoria,

@@ -1,12 +1,11 @@
 const express = require('express');
-const verifyToken = require('../../middleware/AdminValidation');
 const Pregunta = require('../../models/Pregunta');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 const log = require('../../util/log');
 
 // esta api es para administradores
-router.get('/', verifyToken, async (req,res) => {
+router.get('/', async (req,res) => {
     try{
         var db = await Pregunta.find();
         var data = JSON.parse(JSON.stringify(db));
@@ -17,7 +16,7 @@ router.get('/', verifyToken, async (req,res) => {
 });
 
 // POST para agregar. localhost/admin/preguntas
-router.post('/', verifyToken, async (req,res) => {
+router.post('/', async (req,res) => {
     var documentCount = await Pregunta.find({'tipo':req.body.tipo}).countDocuments();
 
     const data = new Pregunta({
@@ -45,20 +44,20 @@ router.post('/', verifyToken, async (req,res) => {
 });
 
 // GET localhost/admin/preguntas/id  para obtener una especifica.
-router.get('/:tipo', verifyToken, async(req,res) =>{
+router.get('/:tipo', async(req,res) =>{
     //recibimos datos de busqueda, como id_pregunta o tipo para traer 1 resultado, o todos.
     res.status(200).json(responseHandler.validResponse({message: "Regreso todas las preguntas de X categoria."}));
 });
 
-router.get('/editar/:idPregunta', verifyToken, async(req,res) =>{
+router.get('/editar/:idPregunta', async(req,res) =>{
    res.status(200).json(responseHandler.validResponse({message: "Información de una pregunta"})); 
 });
 
-router.put('/:idPregunta', verifyToken, async(req,res) =>{
+router.put('/:idPregunta', async(req,res) =>{
     res.status(200).json(responseHandler.validResponse({message: 'Actualizar una pregunta.'}));
 });
 
-router.delete('/:idPregunta', verifyToken, async(req,res) => {
+router.delete('/:idPregunta', async(req,res) => {
     res.status(200).json(responseHandler.validResponse({message: 'Borrar una pregunta'}));
 });
 

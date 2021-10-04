@@ -10,10 +10,9 @@ const config = require('../../util/config');
 const tokenKey = process.env.TOKEN_KEY;
 const cryptoKey = process.env.CRYPTO_KEY;
 const expiryTime = process.env.TOKEN_EXPIRATION_DATE; // EN DIAS
-const verifyToken = require('../../middleware/AdminValidation');
 
 // para obtener detalles de una cuenta
-router.get('/:email', verifyToken, async(req,res) => {
+router.get('/:email', async(req,res) => {
     try{
         var obtained = await User.findOne({email : req.params.email});
         var redacted = obtained.toObject();
@@ -27,7 +26,7 @@ router.get('/:email', verifyToken, async(req,res) => {
 });
 
 // post para crear cuenta (aqui esta el legacy code del signup de auth)
-router.post('/', verifyToken, async(req,res) => {
+router.post('/', async(req,res) => {
     try{
         const user = new User({
             nombre: req.body.nombre,
@@ -82,7 +81,7 @@ router.post('/', verifyToken, async(req,res) => {
 });
 
 // actualizar una cuenta, cambiar rol por ejemplo.
-router.put('/:email', verifyToken, async(req,res) => {
+router.put('/:email', async(req,res) => {
     // NODE-CACHE
     var email = req.params.email;
     var mgObject = await User.findOne({'email' : email});
@@ -110,7 +109,7 @@ router.put('/:email', verifyToken, async(req,res) => {
 });
 
 // borrar cuenta (? aun no se sabe si estara esto al final, pero pues se hace de todos modos :v)
-router.delete('/:email', verifyToken, async(req,res) => {
+router.delete('/:email', async(req,res) => {
     // TODO: borrar cuentas :v
 });
 

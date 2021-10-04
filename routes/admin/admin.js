@@ -6,6 +6,8 @@ const preguntasRoute = require('./preguntas');
 const categoriasRoute = require('./categorias');
 const cuentasRoute = require('./cuentas');
 
+//router level middleware.
+router.use(AdminValidation);
 router.use('/preguntas', preguntasRoute);
 router.use('/categorias', categoriasRoute);
 router.use('/cuentas', cuentasRoute);
