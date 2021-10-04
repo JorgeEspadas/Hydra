@@ -1,5 +1,4 @@
 const express = require('express');
-const verifyToken = require('../../middleware/TokenValidation');
 const Pregunta = require('../../models/Pregunta');
 const Categoria = require('../../models/Categoria');
 const responseHandler = require('../../util/web_responses');
@@ -14,7 +13,7 @@ const router = express.Router();
  * 
  */
 
-router.get('/', verifyToken, async(req,res) => {
+router.get('/', async(req,res) => {
     console.log(req.user.rol);
     res.status(200).json({message: 'check console'});
 })

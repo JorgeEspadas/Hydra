@@ -23,10 +23,6 @@ app.get('/', (req, res) => {
    res.sendFile('./signature.html',{root: __dirname});
 });
 
-app.get('/deeplink', (req,res) => {
-    res.sendFile('./deeplink.html', {root: __dirname});
-});
-
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, () => log.normal('SERVER', 'MongoDB conetado: '+database));
 
 if(config.getDevMode()) log.error('MODO DESARROLLADOR, CONECTANDO A BASE DE DATOS LOCAL Y SALTANDO VALIDACIONES');
