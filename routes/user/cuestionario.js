@@ -17,6 +17,19 @@ router.get('/', async(req,res) => {
     switch(Config.getRol(req.user.rol)){
         case 'Empresa':
             var db = JSON.parse(JSON.stringify(await Categoria.find({"id_categoria" : "Empresa"})));
+            await Pregunta.aggregate([
+                {$group : {
+                    _id: "$categoria",
+                    preguntas: {"$push":"$$ROOT"}
+                }}
+            ], 
+            function(err, result){
+            if(err){
+                res.status(200).json(responseHandler.errorResponse({message: "MongoDB Fault"}));
+            }else{
+                res.status(200).json(responseHandler.validResponse(result));
+            }
+        })
 
             res.status(200).json(responseHandler.validResponse(db));
             break;
@@ -24,7 +37,8 @@ router.get('/', async(req,res) => {
             var db = JSON.parse(JSON.stringify(await Categoria.find({"id_categoria" : "IES"})));
             var test = await Pregunta.aggregate([
                     {$group : {
-                        
+                        _id: "$categoria",
+                        obj: {$push:{$$ROOT}}
                     }}
                 ], 
                 function(err, result){
