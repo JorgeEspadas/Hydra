@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const validation = require('../../middleware/TokenValidation');
-const preguntaRoute = require('./preguntas');
+const preguntaRoute = require('./cuestionario');
 const cuentaRoute = require('./cuenta');
 
 router.use(validation);

@@ -49,12 +49,25 @@ router.get('/:tipo', async(req,res) =>{
     res.status(200).json(responseHandler.validResponse({message: "Regreso todas las preguntas de X categoria."}));
 });
 
-router.get('/editar/:idPregunta', async(req,res) =>{
-   res.status(200).json(responseHandler.validResponse({message: "Información de una pregunta"})); 
-});
-
+// PUT para actualizar preguntas
 router.put('/:idPregunta', async(req,res) =>{
-    res.status(200).json(responseHandler.validResponse({message: 'Actualizar una pregunta.'}));
+    // La primera busqueda se hace para asegurarse de que existe dicha pregunta, si la encontramos damos el pase a la siguiente funcion de update.
+    // Probablemente no se necesita. :v
+    const uneditedQuestion = await Pregunta.findOne({id_pregunta : req.params.idPregunta});
+    if(uneditedQuestion!=null){
+        await Pregunta.updateOne({id_pregunta:req.params.idPregunta},
+            {$set : req.body
+            },{upsert: true}, function(err) {
+                if(!err){
+                    res.status(200).json(responseHandler.validResponse({message:"Pregunta actualizada"}));
+                }else{
+                    res.status(200).json(responseHandler.errorResponse({message:err}));
+                }
+            }
+            );
+    }else{
+        res.status(200).json(responseHandler.errorResponse({message: "No encontre esa pregunta en el sistema"}));
+    }
 });
 
 router.delete('/:idPregunta', async(req,res) => {

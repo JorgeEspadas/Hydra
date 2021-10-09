@@ -56,6 +56,14 @@ class Config {
     static getDevMode() {
         return (DEV_MODE === "true") ? true : false;
     }
+
+    static getRol(number){
+        if(number != 3){
+            return (number == 1) ? "IES":"Empresa";
+        }else{
+            return "notvalid";
+        }
+    }
 }
 
 module.exports = Config;
