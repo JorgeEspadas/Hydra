@@ -5,6 +5,7 @@ const router = express.Router();
 const log = require('../../util/log');
 
 // esta api es para administradores
+//  Organizar por tipo->categorias->preguntas (como en cuestionario.js)
 router.get('/', async (req,res) => {
     try{
         var db = await Pregunta.find();
