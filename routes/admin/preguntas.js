@@ -8,9 +8,30 @@ const log = require('../../util/log');
 //  Organizar por tipo->categorias->preguntas (como en cuestionario.js)
 router.get('/', async (req,res) => {
     try{
-        var db = await Pregunta.find();
-        var data = JSON.parse(JSON.stringify(db));
-        res.status(200).json(responseHandler.validResponse(data));
+        var empresas = await Pregunta.aggregate([
+            {
+                $match:{tipo:"Empresa"}
+            },
+            {$group : {
+                _id: "$categoria",
+                preguntas: {"$push":"$$ROOT"}
+            }},
+        ]);
+        var ies = await Pregunta.aggregate([
+            {
+                $match:{tipo:"IES"}
+            },
+            {$group : {
+                _id: "$categoria",
+                preguntas: {"$push":"$$ROOT"}
+            }},
+        ]);
+
+        var finalObject = {
+            "empresa" : empresas,
+            "ies": ies
+        }
+        res.status(200).json(responseHandler.validResponse(finalObject))
     }catch(error){
         res.status(200).json(responseHandler.errorResponse({message: 'Hubo un problema al obtener la información: '+error.toString()}));
     }
