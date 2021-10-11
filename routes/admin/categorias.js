@@ -6,6 +6,7 @@ const router = express.Router();
 
 // get para todas las categorias, localhost/admin/categorias
 router.get('/', async(req,res) => {
+    console.log(req.user);
     try{
         var db = await Categoria.find();
         var data = JSON.parse(JSON.stringify(db)); // convierte el documento de 

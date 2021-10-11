@@ -1,6 +1,6 @@
 const express = require('express');
 const Pregunta = require('../../models/Pregunta');
-const Categoria = require('../../models/Categoria');
+const Respuesta = require('../../models/Respuesta');
 const responseHandler = require('../../util/web_responses');
 const log = require('../../util/log');
 const Config = require('../../util/config');
@@ -14,9 +14,21 @@ const router = express.Router();
  */
 
 router.get('/', async(req,res) => {
+
+    // Un usuario no puede contestar el cuestionario a menos que tenga permiso de hacerlo
+    // Por tal motivo (por ahora, para no quebrar usuarios), buscaremos si el usuario tiene un entry en respuestas.
+    // Cualquier error retornamos un BAD.
+    var lookup = await Respuesta.findOne({"email" : req.user.email});
+    if(!lookup === null){
+        // siempre debemos contestar una respuesta valida.
+        res.status(200).json(responseHandler.validResponse({answered: true}));
+        return;
+    }
+
     switch(Config.getRol(req.user.rol)){
         case 'Empresa':
             // El match va primero :v, luego agrupas.
+            var count = await Pregunta.countDocuments({tipo: "Empresa"});
             await Pregunta.aggregate([
                 {
                     $match:{tipo:"Empresa"}
@@ -30,11 +42,12 @@ router.get('/', async(req,res) => {
             if(err){
                 res.status(200).json(responseHandler.errorResponse({message: "MongoDB Fault"}));
             }else{
-                res.status(200).json(responseHandler.validResponse(result));
+                res.status(200).json(responseHandler.validResponse({answered: false, total: count, categorias: result}));
             }
             });
         break;
         case 'IES':
+            var count = await Pregunta.countDocuments({tipo: "Empresa"});
             await Pregunta.aggregate([
                     {
                         $match:{tipo:"IES"}
@@ -48,12 +61,12 @@ router.get('/', async(req,res) => {
                 if(err){
                     res.status(200).json(responseHandler.errorResponse({message: "MongoDB Fault"}));
                 }else{
-                    res.status(200).json(responseHandler.validResponse(result));
+                    res.status(200).json(responseHandler.validResponse({answered: false, total: count, categorias: result}));
                 }
             })
             break;
         default:
-            res.status(200).json(responseHandler.validResponse({"message":"No tienes permisos para ver un cuestionario"}));
+            res.status(200).json(responseHandler.errorResponse({"message":"No tienes permisos para ver un cuestionario"}));
             break;
     }
 })
