@@ -18,16 +18,21 @@ const RespuestaSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    respuestas: [
+    data: [
         {
             id_pregunta : {
                 type: String, 
                 required: true
             },
-            id_respuesta : [
+            respuesta : [
                 {
-                    type: String,
-                    required: true
+                    id_respuesta: {
+                        type: String,
+                        required: true
+                    },
+                    texto : {
+                        type: String
+                    }
                 }
             ],
             categoria : {

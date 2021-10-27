@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+/**
+ * ID va a ser reemplazado por el id de mongo
+ * y ya :v
+ */
+
+
 const PreguntaSchema = mongoose.Schema({
     id_pregunta: {
         type: String,
