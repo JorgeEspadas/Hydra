@@ -5,10 +5,14 @@ const responseHandler = require('../../util/web_responses');
 const preguntasRoute = require('./preguntas');
 const categoriasRoute = require('./categorias');
 const cuentasRoute = require('./cuentas');
+const preguntasIESRoute = require('./preguntas_ies');
+const preguntasEmpresasRoute = require('./preguntas_empresas');
 
 //router level middleware.
 router.use(AdminValidation);
 router.use('/preguntas', preguntasRoute);
+router.use('/preguntas/ies', preguntasIESRoute);
+router.use('/preguntas/empresas', preguntasEmpresasRoute);
 router.use('/categorias', categoriasRoute);
 router.use('/cuentas', cuentasRoute);
 
