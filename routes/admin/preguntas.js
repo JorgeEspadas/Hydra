@@ -64,12 +64,6 @@ router.post('/', async (req,res) => {
     }
 });
 
-// GET localhost/admin/preguntas/id  para obtener una especifica.
-router.get('/:tipo', async(req,res) =>{
-    //recibimos datos de busqueda, como id_pregunta o tipo para traer 1 resultado, o todos.
-    res.status(200).json(responseHandler.validResponse({message: "Regreso todas las preguntas de X categoria."}));
-});
-
 // PUT para actualizar preguntas
 router.put('/:idPregunta', async(req,res) =>{
     // La primera busqueda se hace para asegurarse de que existe dicha pregunta, si la encontramos damos el pase a la siguiente funcion de update.

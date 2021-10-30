@@ -13,7 +13,6 @@ router.use(AdminValidation);
 router.use('/preguntas', preguntasRoute);
 router.use('/preguntas/ies', preguntasIESRoute);
 router.use('/preguntas/empresas', preguntasEmpresasRoute);
-router.use('/categorias', categoriasRoute);
 router.use('/cuentas', cuentasRoute);
 
 router.get('/', AdminValidation, async(req,res) =>{
