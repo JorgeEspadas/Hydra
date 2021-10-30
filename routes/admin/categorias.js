@@ -1,6 +1,4 @@
 const express = require('express');
-const Categoria = require('../../models/Categoria');
-const Pregunta = require('../../models/Pregunta');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 

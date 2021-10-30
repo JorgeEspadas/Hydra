@@ -1,5 +1,4 @@
 const express = require('express');
-const Pregunta = require('../../models/Pregunta');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 const log = require('../../util/log');
