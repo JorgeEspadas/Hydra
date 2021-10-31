@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const indicador = require('./IES_Indicador');
+const IESIndicador = require('./IES_Indicador');
 
 const IESDimension = mongoose.Schema({
     titulo : {
