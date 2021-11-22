@@ -1,17 +1,33 @@
-// API ENDPOINT - PREGUNTAS
 const express = require('express');
-const Temp = require('../../../models/Temporal');
-const router = express.Router();
 const responseHandler = require('../../../util/web_responses');
-const config = require('../../../util/config');
+const Config = require('../../../util/config');
+const router = express.Router();
 
-router.post('/validate', async(req,res) =>{
-    // buscar por hash.
-    var lookup = await Temp.findOne({"hash":req.body.key});
 
-    if(lookup === null){
-        res.status(200).json(responseHandler.errorResponse({message:'Llave de acceso invalida.'}));
-    }else{
-        res.status(200).json(responseHandler.validResponse);
+const {preguntas, estudiantes} = require('../../../data/DataIES');
+
+//OBTIENE LAS PREGUNTAS DE LOS USUARIOS PUBLICOS.
+
+router.post('/', async (req, res) => {
+
+    // Un usuario no puede contestar el cuestionario a menos que tenga permiso de hacerlo
+    // Por tal motivo (por ahora, para no quebrar usuarios), buscaremos si el usuario tiene un entry en respuestas.
+    // Cualquier error retornamos un BAD.
+    
+    switch ('IES') {
+        case 'Empresa':
+            // Aqui retornas el codigo de DataEmpresas.js       
+            break;
+        case 'IES':
+            res.status(200).json(responseHandler.validResponse(preguntas));
+            break;
+        case 'ALU':
+            break;
+
+        default:
+            res.status(200).json(responseHandler.errorResponse({ "message": "No tienes permisos para ver un cuestionario" }));
+            break;
     }
 });
+
+module.exports = router;

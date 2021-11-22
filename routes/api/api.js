@@ -13,7 +13,7 @@ router.post('/validate', async(req,res) => {
     if(lookup === null){
         res.status(200).json(responseHandler.errorResponse({message:'Llave de acceso invalida.'}));
     }else{
-        res.status(200).json(responseHandler.validResponse({}));
+        res.status(200).json(responseHandler.validResponse({token: lookup.token}));
     }
 });
 

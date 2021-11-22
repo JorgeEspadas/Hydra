@@ -3047,4 +3047,4 @@ const estudiantes = [
     }
 ]
 
-export {preguntas, estudiantes};
+module.exports = {estudiantes, preguntas};

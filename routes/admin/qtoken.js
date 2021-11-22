@@ -29,7 +29,7 @@ router.post('/generate', async(req,res) => {
     }
 
     var token = config.generateJWT(temporalUser);
-    var key = config.encryptData(token);
+    var key = config.hashData(token);
 
     const newt = new Temp({
         hash: key,
@@ -42,12 +42,6 @@ router.post('/generate', async(req,res) => {
     }catch(e){
         res.status(200).json(responseHandler.errorResponse({message: 'Fallo la creacion del usuario temporal'}));
     }
-
-});
-
-router.post('/test', async(req,res) => {
-    // generates a token with the correct body (nombre, rol y usos) and returns it.
-    console.log(config.encryptData(req.body.nombre));
 
 });
 

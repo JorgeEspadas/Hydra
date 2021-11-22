@@ -1,14 +1,10 @@
 const express = require('express');
 const time = require('moment');
 const User = require('../../models/User');
-const jwt = require('jsonwebtoken');
-const crypto = require('js-sha512');
 const responseHandler = require('../../util/web_responses');
 const router = express.Router();
 const log = require('../../util/log');
 const config = require('../../util/config');
-const tokenKey = process.env.TOKEN_KEY;
-const cryptoKey = process.env.CRYPTO_KEY;
 const expiryTime = process.env.TOKEN_EXPIRATION_DATE; // EN DIAS
 
 // para obtener detalles de una cuenta
@@ -52,13 +48,6 @@ router.post('/', async(req,res) => {
 
             // Encriptacion de JWT con el objeto anterior, usando la secretKey (este token NO CADUCA, y es unico por usuario.)
             user.token = config.generateJWT(encryptedObject);
-            
-            // jwt.sign(encryptedObject,tokenKey, (err, token) =>{
-            //     user.token = token;
-            //     if(err){
-            //         console.log(err);
-            //     }
-            // });
 
             // Guardo el modelo del usuario en base de datos. (almenos lo intento. :v)
             await user.save();

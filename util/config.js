@@ -43,6 +43,10 @@ class Config {
         return crypto.sha512.hmac(cryptoKey, data);
     }
 
+    static hashData(data){
+        return require('crypto').createHash('md5').update(data).digest('hex');
+    }
+
     static decryptData(data){
         return crypto.sha512.hmac()
     }
@@ -100,6 +104,7 @@ class Config {
     }
 
     static getRol(number) {
+        if(number == 4) return 'ALU';
         if (number != 3) {
             return (number == 1) ? "IES" : "Empresa";
         } else {
