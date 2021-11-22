@@ -31,7 +31,7 @@ router.post('/', async(req,res) => {
         const user = new User({
             nombre: req.body.nombre,
             email: req.body.email,
-            password: crypto.sha512.hmac(cryptoKey, req.body.password),
+            password: config.encryptData(req.body.password),
             telefono: req.body.telefono,
             rol: req.body.rol ?? 0// 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
         });
@@ -51,12 +51,14 @@ router.post('/', async(req,res) => {
             };
 
             // Encriptacion de JWT con el objeto anterior, usando la secretKey (este token NO CADUCA, y es unico por usuario.)
-            jwt.sign(encryptedObject,tokenKey, (err, token) =>{
-                user.token = token;
-                if(err){
-                    console.log(err);
-                }
-            });
+            user.token = config.generateJWT(encryptedObject);
+            
+            // jwt.sign(encryptedObject,tokenKey, (err, token) =>{
+            //     user.token = token;
+            //     if(err){
+            //         console.log(err);
+            //     }
+            // });
 
             // Guardo el modelo del usuario en base de datos. (almenos lo intento. :v)
             await user.save();
