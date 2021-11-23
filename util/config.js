@@ -39,6 +39,10 @@ class Config {
         return jwt.sign(objectData, tokenKey);
     }
 
+    static decryptJWT(token){
+        return jwt.verify(token, tokenKey);
+    }
+
     static encryptData(data){
         return crypto.sha512.hmac(cryptoKey, data);
     }
