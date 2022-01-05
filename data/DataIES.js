@@ -1,9 +1,4 @@
-/**
- * EDITA ESTE ARCHIVO PARA EDITAR LAS PREGUNTAS CORRESPONDIENTES A IES
- * HASTA ABAJO SE ENCUENTRAN LAS PREGUNTAS DE EMPRESAS.
- */
-
-const preguntas = [
+const IESPreguntas = [
     {
         header: "Institucion de Educacion Superior",
         indicadores: [
@@ -2654,7 +2649,7 @@ const preguntas = [
     }
 ]
 
-const estudiantes = [
+const IESestudiantes = [
     {
         header: "Institucion de Educacion Superior",
         indicadores: [
@@ -3047,4 +3042,4 @@ const estudiantes = [
     }
 ]
 
-module.exports = {estudiantes, preguntas};
+module.exports = {IESPreguntas, IESestudiantes};
