@@ -12,11 +12,6 @@ const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');
 const usuarioRoute = require('./routes/user/user');
 
-/**
- * PROHIBIDO EL USO DE LA ENIE
- * - gracias
- */
-
 app.use(express.json());
 app.use(cors());
 app.use('/api', apiRoute);

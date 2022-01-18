@@ -56,7 +56,6 @@ router.post('/validate', async (req, res) => {
         }else{
             res.status(200).json(responseHandler.errorResponse({message: "Este token ha caducado o no tiene mas usos."}))
         }
-
     }
 });
 
