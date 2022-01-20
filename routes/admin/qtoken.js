@@ -18,6 +18,7 @@ const Temp = require('../../models/Temporal');
 const router = express.Router();
 const responseHandler = require('../../util/web_responses');
 const config = require('../../util/config');
+const { resetWatchers } = require('nodemon/lib/monitor/watch');
 
 
 router.post('/generate', async(req,res) => {
@@ -38,11 +39,38 @@ router.post('/generate', async(req,res) => {
 
     try{
         await newt.save();
-        res.status(200).json(responseHandler.validResponse({key: key}));
+        res.status(200).json(responseHandler.validResponse({message: "OK", key: key}));
     }catch(e){
         res.status(200).json(responseHandler.errorResponse({message: 'Fallo la creacion del usuario temporal'}));
     }
 
+});
+
+router.get('/list', async(req,res) =>{
+    var lista = await Temp.find();
+    let response = [];
+
+    for(var i = 0; i<lista.length; i++){
+        var dtoken = config.decryptJWT(lista[i].token);
+        var data = {
+            nombre: dtoken.nombre,
+            hash: lista[i].hash,
+            usos: dtoken.usos
+        }
+        response.push(data);
+    }
+    res.status(200).json(responseHandler.validResponse({llaves: response}));
+});
+
+router.post('/delete', async (req,res) => {
+    var objeto = await Temp.find({hash: req.body.hash});
+
+    if(objeto === null){
+        res.status(200).json(responseHandler.errorResponse({message: "Llave no encontrada"}));
+    }else{
+        await Temp.remove({hash: req.body.hash});
+        res.status(200).json(responseHandler.validResponse({message: "Llave eliminada"}));
+    }
 });
 
 module.exports = router;

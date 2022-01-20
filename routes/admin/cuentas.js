@@ -29,7 +29,7 @@ router.post('/', async(req,res) => {
             email: req.body.email,
             password: config.encryptData(req.body.password),
             telefono: req.body.telefono,
-            rol: req.body.rol ?? 0// 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
+            rol: req.body.rol ?? 0 // 0 - publico, 1 - IES, 2 - Empresas, 3 - Administrador.
         });
 
         var lookup = await User.findOne({"email":user.email});
