@@ -1,32 +1,43 @@
 const express = require('express');
 const responseHandler = require('../../../util/web_responses');
 const Config = require('../../../util/config');
+const Temporal = require('../../../models/Temporal');
+const Respuestas = require('../../../models/Respuestas');
 const router = express.Router();
 
-
-const {preguntas, estudiantes} = require('../../../data/DataIES');
-
-//OBTIENE LAS PREGUNTAS DE LOS USUARIOS PUBLICOS.
-
 router.post('/', async (req, res) => {
+    // checar el hash
+    // crear el documento a guardar.
+    var hash = req.body.hash;
+    var respuestas = req.body.respuestas;
 
-    // Un usuario no puede contestar el cuestionario a menos que tenga permiso de hacerlo
-    // Por tal motivo (por ahora, para no quebrar usuarios), buscaremos si el usuario tiene un entry en respuestas.
-    // Cualquier error retornamos un BAD.
-    
-    switch ('IES') {
-        case 'Empresa':
-            // Aqui retornas el codigo de DataEmpresas.js       
-            break;
-        case 'IES':
-            res.status(200).json(responseHandler.validResponse(preguntas));
-            break;
-        case 'ALU':
-            break;
+    if (hash == null) {
+        console.log('No Hash Detected on API/PREGUNTAS')
+        res.status(200).json(responseHandler.errorResponse({ message: 'No hay hash' }));
+        return;
+    }
 
-        default:
-            res.status(200).json(responseHandler.errorResponse({ "message": "No tienes permisos para ver un cuestionario" }));
-            break;
+    // Hash Burning.
+    var hashLookup = await Temporal.findOne({ hash: hash });
+    if (hashLookup != null) {
+        var decoded = Config.decryptJWT(hashLookup.token);
+        Config.burnTemporalKey(hash);
+        const newRespuesta = new Respuestas({
+            nombre: decoded.nombre,
+            respuestas: respuestas,
+            rol: decoded.rol,
+            cdate: Date.now(),
+        });
+
+        try {
+            await newRespuesta.save();
+            res.status(200).json(responseHandler.validResponse({ message: 'Respuestas Guardadas!' }))
+        } catch (e) {
+            console.log(e);
+            res.status(200).json(responseHandler.errorResponse({ message: "Ocurrio un error al guardar las respuestas." }));
+        }
+    }else{
+        res.status(200).json(responseHandler.errorResponse({message:"No se encontro la llave"}));
     }
 });
 

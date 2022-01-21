@@ -5,6 +5,7 @@ const crypto = require('js-sha512');
 const cryptoKey = process.env.CRYPTO_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // el cache se reinicia cada 24 horas.
 const jwt = require('jsonwebtoken');
+const Temporal = require('../models/Temporal');
 const tokenKey = process.env.TOKEN_KEY;
 
 class Config {
@@ -35,23 +36,48 @@ class Config {
         }
     }
 
-    static generateJWT(objectData){
+    static generateJWT(objectData) {
         return jwt.sign(objectData, tokenKey);
     }
 
-    static decryptJWT(token){
+    static decryptJWT(token) {
         return jwt.verify(token, tokenKey);
     }
 
-    static encryptData(data){
+    static encryptData(data) {
         return crypto.sha512.hmac(cryptoKey, data);
     }
 
-    static hashData(data){
+    static hashData(data) {
         return require('crypto').createHash('md5').update(data).digest('hex');
     }
 
-    static decryptData(data){
+    static burnTemporalKey(key) {
+        (async () => {
+            try {
+                var hashLookup = await Temporal.findOne({ hash: key });
+                var decodedToken = Config.decryptJWT(hashLookup.token);
+                if (decodedToken.usos > 0) {
+                    // eliminamos un uso y guardamos
+                    decodedToken.usos--;
+                    var newToken = Config.generateJWT(decodedToken);
+                    console.log(decodedToken.usos);
+                    hashLookup.token = newToken;
+                    await hashLookup.save();
+                    console.log('Token Actualizado');
+                    return true;
+                }else{
+                    // borramos el token
+                    console.log('Remaining uses; '+decodedToken.usos);
+                    await Temporal.deleteOne({hash: key});
+                    console.log('Hash erased');
+                    return false;
+                }
+            } catch (e) { }
+        })()
+    }
+
+    static decryptData(data) {
         return crypto.sha512.hmac()
     }
 
@@ -108,7 +134,7 @@ class Config {
     }
 
     static getRol(number) {
-        if(number == 4) return 'ALU';
+        if (number == 4) return 'ALU';
         if (number != 3) {
             return (number == 1) ? "IES" : "Empresa";
         } else {

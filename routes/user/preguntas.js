@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
             res.status(200).json(validResponse({"preguntas": IESPreguntas}));
             break;
         case 2:
+            // TODO: Empresas
             break;
     }
 });

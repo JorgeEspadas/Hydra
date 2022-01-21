@@ -4,10 +4,11 @@ const Temp = require('../../models/Temporal');
 const responseHandler = require('../../util/web_responses');
 const config = require('../../util/config');
 const log = require('../../util/log');
-const publicRoute = require('./public/public')
+const publicRoute = require('./public/public');
+const preguntasRoute = require('./public/preguntas');
 const { IESPreguntas, IESestudiantes } = require('../../data/DataIES')
 
-router.use('/public', publicRoute);
+router.use('/preguntas', preguntasRoute);
 
 router.post('/validate', async (req, res) => {
     var lookup = await Temp.findOne({ "hash": req.body.key });
@@ -25,17 +26,18 @@ router.post('/validate', async (req, res) => {
                 switch (decodedToken.rol) {
                     case '0':
                         res.status(200).json(responseHandler.validResponse({
-                            "preguntas": IESestudiantes
+                            "preguntas": IESestudiantes,
+                            "rol": 0
                         }));
                         break;
                     case '1':
-                        console.log('IES!');
                         res.status(200).json(responseHandler.validResponse({
-                            "preguntas": IESPreguntas
+                            "preguntas": IESPreguntas,
+                            "rol": 1
                         }));
                         break;
                     case '2':
-                        // algo para empresas
+                        // TODO: Empresas
                         break;
                     default: console.log(decodedToken.rol); break;
                 }
