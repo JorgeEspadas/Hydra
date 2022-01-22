@@ -6,6 +6,7 @@ const config = require('../../util/config');
 const preguntasRoute = require('./public/preguntas');
 const estadisticasRoute = require('./public/estadisticas');
 const { IESPreguntas, IESestudiantes } = require('../../data/DataIES')
+const empresas = require('../../data/DataEmpresas');
 
 router.use('/preguntas', preguntasRoute);
 router.use('/estadisticas', estadisticasRoute);
@@ -37,7 +38,9 @@ router.post('/validate', async (req, res) => {
                         }));
                         break;
                     case '2':
-                        // TODO: Empresas
+                        res.status(200).json(responseHandler.validResponse({
+                            "preguntas": empresas
+                        }));
                         break;
                     default: console.log(decodedToken.rol); break;
                 }
