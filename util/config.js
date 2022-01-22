@@ -36,8 +36,8 @@ class Config {
                                     "as": "el",
                                     "cond": {
                                         "$and": [
-                                            { "$eq": ["$$el.valor", idRespuesta] },
-                                            { "$eq": ["$$el.id", idPregunta] }
+                                            { "$eq": ["$$el.valor", idRespuesta.toString()] },
+                                            { "$eq": ["$$el.id", idPregunta.toString()] }
                                         ]
                                     }
                                 }

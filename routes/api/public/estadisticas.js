@@ -4,6 +4,7 @@ const router = express.Router();
 const { IESPreguntas, IESestudiantes } = require('../../../data/DataIES');
 const Respuestas = require('../../../models/Respuestas');
 const Config = require('../../../util/config');
+const Log = require('../../../util/log');
 
 
 router.post('/', async (req, res) => {
@@ -14,7 +15,7 @@ router.post('/', async (req, res) => {
     // responder.
 
     // cache validation
-    var cacheLookup = Config.getFromCache('publicIESdata');
+    var cacheLookup = Config.getFromCache('DataIESAlumno');
     var statistics = [];
     var promiseArray = [];
 
@@ -45,16 +46,18 @@ router.post('/', async (req, res) => {
                                 'total' : await Config.getIESdata(0, idPregunta, respuestaValor)
                             }
 
-                            promiseArray.push(respuestaPayload);
+                            resultados.push(respuestaPayload);
                         }
+                        statistics.push({
+                            "texto": textoPregunta,
+                            "resultados": resultados
+                        });
                     }
                 }
 
-                await Promise.all(promiseArray).then(function(results){
-                    console.log(results);
-                });
-                
-                res.status(200).json({a:'1'});
+                Config.addToCache('DataIESAlumno', statistics);
+                Log.normal('API/ESTADISTICAS', 'Guardado IESAlumno en Cache.');
+                res.status(200).json(statistics);
                 break;
             case 1:
                 break;
@@ -63,6 +66,11 @@ router.post('/', async (req, res) => {
         }
     } else {
         // hay algo en cache, lo retornamos alch.
+        switch(req.body.rol){
+            case 0:
+                res.status(200).json(Config.getFromCache('DataIESAlumno'));
+                break;
+        }
     }
 
     //res.status(200).json({message: "viento en pooooopa"});
