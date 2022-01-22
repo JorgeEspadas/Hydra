@@ -5,6 +5,12 @@ const Temporal = require('../../../models/Temporal');
 const Respuestas = require('../../../models/Respuestas');
 const router = express.Router();
 
+router.post('/lookup', async (req, res) => {
+    var x = await Config.getIESdata(0, 'st_15', '2');
+
+        res.status(200).json(x);
+});
+
 router.post('/', async (req, res) => {
     // checar el hash
     // crear el documento a guardar.
@@ -36,8 +42,8 @@ router.post('/', async (req, res) => {
             console.log(e);
             res.status(200).json(responseHandler.errorResponse({ message: "Ocurrio un error al guardar las respuestas." }));
         }
-    }else{
-        res.status(200).json(responseHandler.errorResponse({message:"No se encontro la llave"}));
+    } else {
+        res.status(200).json(responseHandler.errorResponse({ message: "No se encontro la llave" }));
     }
 });
 

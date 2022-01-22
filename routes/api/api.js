@@ -3,12 +3,12 @@ const router = express.Router();
 const Temp = require('../../models/Temporal');
 const responseHandler = require('../../util/web_responses');
 const config = require('../../util/config');
-const log = require('../../util/log');
-const publicRoute = require('./public/public');
 const preguntasRoute = require('./public/preguntas');
+const estadisticasRoute = require('./public/estadisticas');
 const { IESPreguntas, IESestudiantes } = require('../../data/DataIES')
 
 router.use('/preguntas', preguntasRoute);
+router.use('/estadisticas', estadisticasRoute);
 
 router.post('/validate', async (req, res) => {
     var lookup = await Temp.findOne({ "hash": req.body.key });

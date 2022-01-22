@@ -3,9 +3,11 @@ const log = require('./log');
 const NodeCache = require('node-cache');
 const crypto = require('js-sha512');
 const cryptoKey = process.env.CRYPTO_KEY;
+const Respuestas = require('../models/Respuestas');
 const cache = new NodeCache({ stdTTL: 86400 }); // el cache se reinicia cada 24 horas.
 const jwt = require('jsonwebtoken');
 const Temporal = require('../models/Temporal');
+const res = require('express/lib/response');
 const tokenKey = process.env.TOKEN_KEY;
 
 class Config {
@@ -19,6 +21,36 @@ class Config {
     // el nombre del metodo es suficiente.
     static getFromCache(key) {
         return cache.get(key);
+    }
+
+    static getIESdata = async (rol, idPregunta, idRespuesta, cb) => {
+        var resultado = await Respuestas.aggregate([
+            { "$match": { "rol": rol } },
+            {
+                "$project": {
+                    "respuestas": {
+                        "$map": {
+                            "input": {
+                                "$filter": {
+                                    "input": "$respuestas",
+                                    "as": "el",
+                                    "cond": {
+                                        "$and": [
+                                            { "$eq": ["$$el.valor", idRespuesta] },
+                                            { "$eq": ["$$el.id", idPregunta] }
+                                        ]
+                                    }
+                                }
+                            },
+                            "as": "item",
+                            "in": "$$item.id"
+                        }
+                    },
+                }
+            },
+        ]).unwind({ path: '$respuestas', preserveNullAndEmptyArrays: false }).exec();
+        cb('alv ptos '+resultado);
+        return resultado;
     }
 
     static interpretMongooseConnection(number) {
@@ -66,10 +98,10 @@ class Config {
                     await hashLookup.save();
                     console.log('Token Actualizado');
                     return true;
-                }else{
+                } else {
                     // borramos el token
-                    console.log('Remaining uses; '+decodedToken.usos);
-                    await Temporal.deleteOne({hash: key});
+                    console.log('Remaining uses; ' + decodedToken.usos);
+                    await Temporal.deleteOne({ hash: key });
                     console.log('Hash erased');
                     return false;
                 }
