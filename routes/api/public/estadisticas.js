@@ -42,11 +42,17 @@ router.post('/', async (req, res) => {
 
                             var respuestaPayload = {
                                 'texto' : respuestaTexto,
-                                'total' : Config.getIESdata(0, idPregunta, respuestaValor, (res => console.log('callback: '+res)))
+                                'total' : await Config.getIESdata(0, idPregunta, respuestaValor)
                             }
+
+                            promiseArray.push(respuestaPayload);
                         }
                     }
                 }
+
+                await Promise.all(promiseArray).then(function(results){
+                    console.log(results);
+                });
                 
                 res.status(200).json({a:'1'});
                 break;

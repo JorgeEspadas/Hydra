@@ -23,7 +23,7 @@ class Config {
         return cache.get(key);
     }
 
-    static getIESdata = async (rol, idPregunta, idRespuesta, cb) => {
+    static getIESdata = async (rol, idPregunta, idRespuesta) => {
         var resultado = await Respuestas.aggregate([
             { "$match": { "rol": rol } },
             {
@@ -49,7 +49,6 @@ class Config {
                 }
             },
         ]).unwind({ path: '$respuestas', preserveNullAndEmptyArrays: false }).exec();
-        cb('alv ptos '+resultado);
         return resultado;
     }
 
