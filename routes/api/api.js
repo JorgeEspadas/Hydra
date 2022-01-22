@@ -6,6 +6,7 @@ const config = require('../../util/config');
 const log = require('../../util/log');
 const publicRoute = require('./public/public')
 const { IESPreguntas, IESestudiantes } = require('../../data/DataIES')
+const empresas = require('../../data/DataEmpresas');
 
 router.use('/public', publicRoute);
 
@@ -35,7 +36,9 @@ router.post('/validate', async (req, res) => {
                         }));
                         break;
                     case '2':
-                        // algo para empresas
+                        res.status(200).json(responseHandler.validResponse({
+                            "preguntas": empresas
+                        }));
                         break;
                     default: console.log(decodedToken.rol); break;
                 }
