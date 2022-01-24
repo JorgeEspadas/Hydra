@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
 
     switch (decodedToken.rol) {
         case 0:
+            res.status(200).json(validResponse({"preguntas": IESestudiantes}));
             break;
         case 1:
             res.status(200).json(validResponse({"preguntas": IESPreguntas}));
@@ -21,6 +22,11 @@ router.post('/', async (req, res) => {
             // TODO: Empresas
             break;
     }
+});
+
+router.post('/guardar', async(req,res)=>{
+    // metodo para guardar las respuestas de usuarios registrados para los cuestionarios.
+    
 });
 
 module.exports = router;

@@ -29,6 +29,7 @@ router.post('/generate', async(req,res) => {
         usos: req.body.usos
     }
 
+    console.log(temporalUser);
     var token = config.generateJWT(temporalUser);
     var key = config.hashData(token);
 

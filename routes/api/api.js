@@ -14,12 +14,14 @@ router.use('/estadisticas', estadisticasRoute);
 router.post('/validate', async (req, res) => {
     var lookup = await Temp.findOne({ "hash": req.body.key });
 
+    console.log(lookup);
     if (lookup === null) {
         res.status(200).json(responseHandler.errorResponse({ message: 'Llave de acceso invalida o expirada.' }));
     } else {
         // decrypt, reduce, reencrypt and update (returning the correct token)
         var token = lookup.token;
         var decodedToken = config.decryptJWT(token);
+        console.log(decodedToken.rol);
 
         // ROL 0 - ALUMNOS, 1  - IES, 2 - EMPRESAS.
         try {
@@ -39,7 +41,8 @@ router.post('/validate', async (req, res) => {
                         break;
                     case '2':
                         res.status(200).json(responseHandler.validResponse({
-                            "preguntas": empresas
+                            "preguntas": empresas,
+                            "rol": 2
                         }));
                         break;
                     default: console.log(decodedToken.rol); break;

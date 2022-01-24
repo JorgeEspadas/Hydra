@@ -6,7 +6,7 @@ const Respuestas = require('../../../models/Respuestas');
 const router = express.Router();
 
 router.post('/lookup', async (req, res) => {
-    var x = await Config.getIESdata(0, 'st_15', '2');
+    var x = await Config.getIESdata(0, 'st_14', '2');
 
         res.status(200).json(x);
 });

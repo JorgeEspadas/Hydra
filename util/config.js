@@ -15,7 +15,7 @@ class Config {
     // acceso a cache, un reinicio al servidor lo truena :v
     static addToCache(key, value) {
         cache.set(key, value);
-        log.normal('CONFIG', 'Guardados datos en cache');
+        log.normal('CONFIG', 'Se guardo informacion en cache en la llave: '+key.toString());
     }
 
     // el nombre del metodo es suficiente.
