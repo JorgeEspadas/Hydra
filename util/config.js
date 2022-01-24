@@ -92,7 +92,6 @@ class Config {
                     // eliminamos un uso y guardamos
                     decodedToken.usos--;
                     var newToken = Config.generateJWT(decodedToken);
-                    console.log(decodedToken.usos);
                     hashLookup.token = newToken;
                     await hashLookup.save();
                     console.log('Token Actualizado');
@@ -100,7 +99,7 @@ class Config {
                 } else {
                     // borramos el token
                     console.log('Remaining uses; ' + decodedToken.usos);
-                    await Temporal.deleteOne({ hash: key });
+                    await Temporal.deleteOne({ hash: key }).exec();
                     console.log('Hash erased');
                     return false;
                 }

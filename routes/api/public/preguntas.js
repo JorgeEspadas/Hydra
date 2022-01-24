@@ -6,14 +6,12 @@ const Respuestas = require('../../../models/Respuestas');
 const router = express.Router();
 
 router.post('/lookup', async (req, res) => {
-    var x = await Config.getIESdata(0, 'st_14', '2');
+    var x = await Config.getIESdata(0, 'st_15', '2');
 
         res.status(200).json(x);
 });
 
 router.post('/', async (req, res) => {
-    // checar el hash
-    // crear el documento a guardar.
     var hash = req.body.hash;
     var respuestas = req.body.respuestas;
 
@@ -23,7 +21,6 @@ router.post('/', async (req, res) => {
         return;
     }
 
-    // Hash Burning.
     var hashLookup = await Temporal.findOne({ hash: hash });
     if (hashLookup != null) {
         var decoded = Config.decryptJWT(hashLookup.token);

@@ -9,12 +9,6 @@ const Log = require('../../../util/log');
 const IESRecolector = require('../../../util/estadisticas_ies');
 
 router.post('/', async (req, res) => {
-    // recibir que resultados voy a retornar en base al rol
-    // consultar cache para ver si ya estan ahi
-    // si no estan ni pedo, 355 operaciones
-    // guardar esas 355 operaciones para que no se haga un cagadero.
-    // responder.
-
     var rol = req.body.rol;
 
     if (rol == undefined) { res.status(200).json(responseHandler.errorResponse({ message: 'No se encontro ninguna respuesta' })); return; }
