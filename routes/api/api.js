@@ -5,11 +5,13 @@ const responseHandler = require('../../util/web_responses');
 const config = require('../../util/config');
 const preguntasRoute = require('./public/preguntas');
 const estadisticasRoute = require('./public/estadisticas');
+const estadisticasEmpresas = require('./public/estadistica_empresas');
 const { IESPreguntas, IESestudiantes } = require('../../data/DataIES')
 const empresas = require('../../data/DataEmpresas');
 
 router.use('/preguntas', preguntasRoute);
 router.use('/estadisticas', estadisticasRoute);
+router.use('/estadistica_empresas', estadisticasEmpresas);
 
 router.post('/validate', async (req, res) => {
     var lookup = await Temp.findOne({ "hash": req.body.key });

@@ -1181,7 +1181,7 @@ const preguntas_empresas = [
             },
             {
                 texto:"¿Cuántos de sus productos han sido certificados en total?",
-                _id:"empresas_37_1",
+                _id:"empresas_37.1",
                 tipo:"abierta",
                 multiples:false,
                 opciones:[
@@ -1212,7 +1212,7 @@ const preguntas_empresas = [
             },
             {
                 texto:"¿Cuántas patentes ha solicitado en total?",
-                _id:"empresas_38_1",
+                _id:"empresas_38.1",
                 tipo:"abierta",
                 multiples:false,
                 opciones:[
@@ -1243,7 +1243,7 @@ const preguntas_empresas = [
             },
             {
                 texto:"¿Cuántas patentes ha obtenido en total?",
-                _id:"empresas_39_1",
+                _id:"empresas_39.1",
                 tipo:"abierta",
                 multiples:false,
                 opciones:[
@@ -1274,7 +1274,7 @@ const preguntas_empresas = [
             },
             {
                 texto:"¿Cuántos productos o tecnologías han obtenido la concesión de licencia en total?",
-                _id:"empresas_40_1",
+                _id:"empresas_40.1",
                 tipo:"abierta",
                 multiples:false,
                 opciones:[
@@ -1305,7 +1305,7 @@ const preguntas_empresas = [
             },
             {
                 texto:"¿Cuántos procesos certificados ha obtenido?:",
-                _id:"empresas_41_1",
+                _id:"empresas_41.1",
                 tipo:"abierta",
                 multiples:false,
                 opciones:[
@@ -2473,7 +2473,7 @@ const preguntas_empresas = [
                     },
                     {
                         opcion_id:6,
-                        abierta:true,
+                        abierta:false,
                         texto:"Ninguno"
                     }
                 ]
