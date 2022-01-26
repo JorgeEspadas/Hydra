@@ -14,7 +14,7 @@
  */
 
 const express = require('express');
-const Temp = require('../../models/Temporal');
+const Temp = require('../../models/Entidad');
 const router = express.Router();
 const responseHandler = require('../../util/web_responses');
 const config = require('../../util/config');
@@ -22,14 +22,13 @@ const { resetWatchers } = require('nodemon/lib/monitor/watch');
 
 
 router.post('/generate', async(req,res) => {
-    // generates a token with the correct body (nombre, rol y usos) and returns it.
+    // aquí toda la info va dentro del token.
     var temporalUser = {
         nombre: req.body.nombre,
         rol: req.body.rol,
         usos: req.body.usos
     }
 
-    console.log(temporalUser);
     var token = config.generateJWT(temporalUser);
     var key = config.hashData(token);
 

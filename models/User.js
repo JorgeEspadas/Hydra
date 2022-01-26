@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+// LEGACY.
+// ESTE COMPONENTE SOLO SE USA PARA USUARIOS ADMINISTRATIVOS.
+// NO ES SOPORTADO POR NINGUN ENDPOINT.
+
 const UserSchema = mongoose.Schema({
     email : {
         type: String,

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Temp = require('../../models/Temporal');
+const Temp = require('../../models/Entidad');
 const responseHandler = require('../../util/web_responses');
 const config = require('../../util/config');
 const preguntasRoute = require('./public/preguntas');

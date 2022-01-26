@@ -32,7 +32,7 @@
             //El mongo de todas maneras regresa un arreglo de resultados.
             if(user.password == lookup.toObject().password){
                 //Aqui entramos si la password pasada(y encriptada) hace match con la pass guardada en base de datos.
-                if(lookup.toObject().token === null || lookup.toObject().token === '' || config.isTokenBanned(lookup.toObject().token)){
+                if((lookup.toObject().token === null || lookup.toObject().token === undefined) || lookup.toObject().token === '' || config.isTokenBanned(lookup.toObject().token)){
                     // Si el usuario no tiene token o esta baneado., firmamos uno nuevo, crack.
                     let future = today.clone().add(expiryTime, 'days');
                     var encryptedObject = {

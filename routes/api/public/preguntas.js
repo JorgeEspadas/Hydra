@@ -1,7 +1,7 @@
 const express = require('express');
 const responseHandler = require('../../../util/web_responses');
 const Config = require('../../../util/config');
-const Temporal = require('../../../models/Temporal');
+const Temporal = require('../../../models/Entidad');
 const Respuestas = require('../../../models/Respuestas');
 const router = express.Router();
 

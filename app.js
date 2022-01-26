@@ -11,6 +11,7 @@ const apiRoute = require('./routes/api/api');
 const authRoute = require('./routes/auth/auth');
 const adminRoute = require('./routes/admin/admin');
 const usuarioRoute = require('./routes/user/user');
+const Config = require('./util/config');
 
 app.use(express.json());
 app.use(cors());
@@ -27,6 +28,13 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, use
 
 if(config.getDevMode()) log.error('MODO DESARROLLADOR, CONECTANDO A BASE DE DATOS LOCAL Y SALTANDO VALIDACIONES');
 
+(async () => {
+    try {
+        await Config.firstInit();
+    } catch (e) {
+        // Deal with the fact the chain failed
+    }
+})();
 app.listen(puerto, ()=>{
     log.normal('SERVER','Server iniciado en: '+puerto);
 });
