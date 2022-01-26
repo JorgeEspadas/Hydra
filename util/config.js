@@ -15,7 +15,7 @@ class Config {
     // acceso a cache, un reinicio al servidor lo truena :v
     static addToCache(key, value) {
         cache.set(key, value);
-        log.normal('CONFIG', 'Guardados datos en cache');
+        log.normal('CONFIG', 'Se guardo informacion en cache en la llave: '+key.toString());
     }
 
     // el nombre del metodo es suficiente.
@@ -92,7 +92,6 @@ class Config {
                     // eliminamos un uso y guardamos
                     decodedToken.usos--;
                     var newToken = Config.generateJWT(decodedToken);
-                    console.log(decodedToken.usos);
                     hashLookup.token = newToken;
                     await hashLookup.save();
                     console.log('Token Actualizado');
@@ -100,7 +99,7 @@ class Config {
                 } else {
                     // borramos el token
                     console.log('Remaining uses; ' + decodedToken.usos);
-                    await Temporal.deleteOne({ hash: key });
+                    await Temporal.deleteOne({ hash: key }).exec();
                     console.log('Hash erased');
                     return false;
                 }

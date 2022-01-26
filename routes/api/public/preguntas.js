@@ -12,8 +12,6 @@ router.post('/lookup', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    // checar el hash
-    // crear el documento a guardar.
     var hash = req.body.hash;
     var respuestas = req.body.respuestas;
 
@@ -23,7 +21,6 @@ router.post('/', async (req, res) => {
         return;
     }
 
-    // Hash Burning.
     var hashLookup = await Temporal.findOne({ hash: hash });
     if (hashLookup != null) {
         var decoded = Config.decryptJWT(hashLookup.token);

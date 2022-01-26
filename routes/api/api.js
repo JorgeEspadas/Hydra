@@ -19,11 +19,9 @@ router.post('/validate', async (req, res) => {
     if (lookup === null) {
         res.status(200).json(responseHandler.errorResponse({ message: 'Llave de acceso invalida o expirada.' }));
     } else {
-        // decrypt, reduce, reencrypt and update (returning the correct token)
         var token = lookup.token;
         var decodedToken = config.decryptJWT(token);
 
-        // ROL 0 - ALUMNOS, 1  - IES, 2 - EMPRESAS.
         try {
             if (parseInt(decodedToken.usos) > 0) {
                 switch (decodedToken.rol) {
@@ -51,7 +49,7 @@ router.post('/validate', async (req, res) => {
                 res.status(200).json(responseHandler.errorResponse({ message: "Este token ha caducado o no tiene mas usos." }))
             }
         } catch (e) {
-            res.status(200).json({ message: "fail" });
+            res.status(200).json({ message: "Hubo un problema al obtener las preguntas" });
             console.log(e);
         }
     }
