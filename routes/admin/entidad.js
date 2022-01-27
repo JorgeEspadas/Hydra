@@ -16,6 +16,7 @@ router.post("/generar", async (req, res) => {
   var ausos = req.body.usos;
   var atelefono = req.body.telefono;
   var arol = req.body.rol;
+  var entidad = req.body.entidad;
 
   console.log(ausos);
   if (
@@ -38,6 +39,12 @@ router.post("/generar", async (req, res) => {
       telefono: atelefono,
       rol: arol,
     };
+
+    // si es estudiante le anexamos la entidad a la que pertenece
+    if(arol == 0){
+      console.log(entidad);
+      tempEntity.entidad = entidad;
+    }
 
     var entityToken = Config.generateJWT(tempEntity);
     var key = Config.hashData(entityToken);
@@ -95,8 +102,11 @@ router.post("/ver", async (req, res) => {
       usos: dtoken.usos,
       rol: dtoken.rol,
     };
+
+    if(dtoken.rol == 0) data.entidad = dtoken.entidad;
     response.push(data);
   }
+  console.log(response);
   res.status(200).json(responseHandler.validResponse({ llaves: response }));
 });
 
