@@ -32,6 +32,8 @@ router.post('/', async (req, res) => {
             cdate: Date.now(),
         });
 
+        if(decoded.rol.toString() === '0') newRespuesta.entidad = decoded.entidad;
+
         try {
             await newRespuesta.save();
             res.status(200).json(responseHandler.validResponse({ message: 'Respuestas Guardadas!' }))

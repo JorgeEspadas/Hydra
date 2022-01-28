@@ -4,6 +4,9 @@ const RespuestaSchema = mongoose.Schema({
     email: {
         type: String
     },
+    entidad: {
+        type: String
+    },
     rol: {
         type: Number,
         required: true

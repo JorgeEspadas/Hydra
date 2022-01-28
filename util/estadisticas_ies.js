@@ -1,7 +1,37 @@
 const Config = require("./config");
+const Respuestas = require('../models/Respuestas');
 
 class IESRecolector {
-  static getResults = async (data) => {
+  static getIESdata = async (rol, idPregunta, idRespuesta) => {
+    var resultado = await Respuestas.aggregate([
+        { "$match": { "rol": rol } },
+        {
+            "$project": {
+                "respuestas": {
+                    "$map": {
+                        "input": {
+                            "$filter": {
+                                "input": "$respuestas",
+                                "as": "el",
+                                "cond": {
+                                    "$and": [
+                                        { "$eq": ["$$el.valor", idRespuesta.toString()] },
+                                        { "$eq": ["$$el.id", idPregunta.toString()] }
+                                    ]
+                                }
+                            }
+                        },
+                        "as": "item",
+                        "in": "$$item.id"
+                    }
+                },
+            }
+        },
+    ]).unwind({ path: '$respuestas', preserveNullAndEmptyArrays: false }).exec();
+    return resultado;
+}
+
+static getResults = async (data) => {
     var statistics = [];
     for (var indicadorIndex in data[0]["indicadores"]) {
       var indicador = data[0]["indicadores"][indicadorIndex];

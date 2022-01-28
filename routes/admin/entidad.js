@@ -18,7 +18,6 @@ router.post("/generar", async (req, res) => {
   var arol = req.body.rol;
   var entidad = req.body.entidad;
 
-  console.log(ausos);
   if (
     anombre == undefined ||
     aemail == undefined ||
@@ -106,7 +105,7 @@ router.post("/ver", async (req, res) => {
     if(dtoken.rol == 0) data.entidad = dtoken.entidad;
     response.push(data);
   }
-  console.log(response);
+  
   res.status(200).json(responseHandler.validResponse({ llaves: response }));
 });
 

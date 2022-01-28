@@ -24,7 +24,7 @@ router.post('/validate', async (req, res) => {
 
         try {
             if (parseInt(decodedToken.usos) > 0) {
-                switch (decodedToken.rol) {
+                switch (decodedToken.rol.toString()) {
                     case '0':
                         res.status(200).json(responseHandler.validResponse({
                             "preguntas": IESestudiantes,
@@ -49,7 +49,7 @@ router.post('/validate', async (req, res) => {
                 res.status(200).json(responseHandler.errorResponse({ message: "Este token ha caducado o no tiene mas usos." }))
             }
         } catch (e) {
-            res.status(200).json({ message: "Hubo un problema al obtener las preguntas" });
+            res.status(200).json(responseHandler.errorResponse({ message: "Hubo un problema al obtener las preguntas" }));
             console.log(e);
         }
     }
