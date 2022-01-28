@@ -2,67 +2,45 @@ const Config = require("./config");
 const Respuestas = require('../models/Respuestas');
 
 class IESRecolector {
-  static getIESdata = async (rol, idPregunta, idRespuesta) => {
-    var resultado = await Respuestas.aggregate([
-        { "$match": { "rol": rol } },
-        {
-            "$project": {
-                "respuestas": {
-                    "$map": {
-                        "input": {
-                            "$filter": {
-                                "input": "$respuestas",
-                                "as": "el",
-                                "cond": {
-                                    "$and": [
-                                        { "$eq": ["$$el.valor", idRespuesta.toString()] },
-                                        { "$eq": ["$$el.id", idPregunta.toString()] }
-                                    ]
-                                }
-                            }
-                        },
-                        "as": "item",
-                        "in": "$$item.id"
-                    }
-                },
-            }
-        },
-    ]).unwind({ path: '$respuestas', preserveNullAndEmptyArrays: false }).exec();
-    return resultado;
-}
+  static getStudentTotalPerResponse = (resultado, idPregunta, idRespuesta) => {
+    var totalHits = 0;
 
-static getResults = async (data) => {
-    var statistics = [];
-    for (var indicadorIndex in data[0]["indicadores"]) {
-      var indicador = data[0]["indicadores"][indicadorIndex];
-      // acceso a cada indicador de estudiantes.
-
-      for (var preguntasIndex in indicador["preguntas"]) {
-        var pregunta = indicador["preguntas"][preguntasIndex];
-        var idPregunta = pregunta["id"];
-        var textoPregunta = pregunta["texto"];
-
-        var resultados = [];
-
-        for (var respuestaIndex in pregunta["respuestas"]) {
-          var respuesta = pregunta["respuestas"][respuestaIndex];
-          var respuestaValor = respuesta["valor"];
-          var respuestaTexto = respuesta["texto"];
-
-          var respuestaPayload = {
-            texto: respuestaTexto,
-            total: await Config.getIESdata(0, idPregunta, respuestaValor),
-          };
-
-          resultados.push(respuestaPayload);
+    resultado.forEach((item, index) => {
+      var resArray = item.respuestas;
+      resArray.forEach((res, i) => {
+        if (res.id == idPregunta && res.valor == idRespuesta) {
+          totalHits++;
         }
-        statistics.push({
-          idp: idPregunta,
-          texto: textoPregunta,
-          resultados: resultados,
+      });
+    });
+
+    return totalHits;
+  }
+
+  static getStudentResults = async (data, entidad) => {
+    var statistics = [];
+    var respuestaData = await Respuestas.find({ '$and': [{ 'rol': '0' }, { 'entidad': entidad }] });
+
+    data[0]["indicadores"].forEach(async (indicador, indicadorIndex) => {
+      // titulo del indicador
+      (indicador.preguntas).forEach(async (pregunta, preguntaIndex) => {
+        //modulo, id, texto de la pregunta.
+        var payload = {
+          id: pregunta.id,
+          texto: pregunta.texto,
+          resultados: []
+        };
+        (pregunta.respuestas).forEach(async (respuesta, respuestaIndex) => {
+          // valor y texto de cada respuesta
+          var rp = {
+            texto: respuesta.texto,
+            total: this.getStudentTotalPerResponse(respuestaData, pregunta.id, respuesta.valor)
+          };
+          payload.resultados.push(rp)
         });
-      }
-    }
+        statistics.push(payload);
+      });
+    });
     return statistics;
   };
 }

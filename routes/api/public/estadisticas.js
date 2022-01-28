@@ -16,19 +16,16 @@ router.post('/', async (req, res) => {
     switch (rol) {
         case 0:
             var ies = IESestudiantes;
-            var cache = Config.getFromCache('estadisticas_ies_alumnos');
-            if (cache != undefined) { res.status(200).json(responseHandler.validResponse(cache)); return; }
-            var results = await IESRecolector.getResults(ies);
-            Config.addToCache('estadisticas_ies_alumnos', results);
+            var results = await IESRecolector.getStudentResults(ies, 'Universidad Autonoma de Campeche');
             res.status(200).json(responseHandler.validResponse(results));
             break;
         case 1:
             var ies = IESPreguntas;
             var cache = Config.getFromCache('estadisticas_ies');
             if (cache != undefined) { res.status(200).json(responseHandler.validResponse(cache)); return; }
-            var results = await IESRecolector.getResults(ies);
-            Config.addToCache('estadisticas_ies', results);
-            res.status(200).json(responseHandler.validResponse(results));
+            //var results = await IESRecolector.getResults(ies);
+            //Config.addToCache('estadisticas_ies', results);
+            res.status(200).json(responseHandler.validResponse('a'));
             break;
         case 2:
             break;
