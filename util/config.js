@@ -6,11 +6,36 @@ const cryptoKey = process.env.CRYPTO_KEY;
 const Respuestas = require('../models/Respuestas');
 const cache = new NodeCache({ stdTTL: 86400 }); // el cache se reinicia cada 24 horas.
 const jwt = require('jsonwebtoken');
-const Temporal = require('../models/Temporal');
-const res = require('express/lib/response');
+const Temporal = require('../models/Entidad');
+const User = require('../models/User');
 const tokenKey = process.env.TOKEN_KEY;
 
 class Config {
+
+    // verifica si existe algún usuario en mongoDB.
+    // si no se crea por defecto la cuenta:
+    // admin@uacam.mx con su contraseña: administrador2022
+    // si se quiere crear una cuenta desde Hydra, la password debe ir en MD5 y luego ser pasada por SHA512.
+    // see encryptData()
+    static firstInit = async() => {
+        var lookup = await User.find().exec();
+        if(lookup == null || lookup.length == 0){
+            const firstUser = User({
+                email: 'admin@uacam.mx',
+                nombre: 'Administrador',
+                telefono: '0000000000',
+                rol: 3,
+                password: this.encryptData(this.hashData('administrador2022'))
+            });
+
+            try{
+                await firstUser.save();
+                log.warning('PRIMER ARRANQUE', 'Se ha creado la primera cuenta satisfactoriamente');
+            }catch(e){
+                log.error(e);
+            }
+        }
+    }
 
     // acceso a cache, un reinicio al servidor lo truena :v
     static addToCache(key, value) {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TemporalSchema = mongoose.Schema({
+const EntidadSchema = mongoose.Schema({
     hash: {
         type: String,
         required: true
@@ -11,4 +11,4 @@ const TemporalSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Temporales', TemporalSchema)
+module.exports = mongoose.model('Entidades', EntidadSchema)
