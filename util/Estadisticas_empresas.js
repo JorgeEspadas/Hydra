@@ -5,7 +5,6 @@ class DatosEmpresas{
     }
 
     getPregunta(idPregunta, idRespuesta) {
-
         let respuestas = [];
         let id_pregunta;
         (this.datos).forEach(element => {
@@ -28,23 +27,44 @@ class DatosEmpresas{
         return {idPregunta : idPregunta, result: respuestas};
     }
 
+    getResLen(idPregunta, idRespuesta){
+        return this.getPregunta(idPregunta, idRespuesta).length;
+    }
+
+    getDatosLen(){
+        return this.datos.length;
+    }
+
+    //devuelve el promedio de años para la pregunta 1
     promedioAntiguedadEmpresas (){
-        //Falta obtener el total de años restanto al año actual cada fecha de cada empresa
         var today = new Date();
         var year = today.getFullYear();
-        console.log(year);
         var aniosEmpresas = this.getPregunta("empresas_1","0");
         var sumaAnios = 0;
         aniosEmpresas.result.forEach(element => {
-            sumaAnios = sumaAnios + (year - parseInt(element,10));
+            sumaAnios = sumaAnios + (year - parseInt(element.valor,10));
         })
     
-        return sumaAnios / aniosEmpresas.result.length;
+        return (sumaAnios / aniosEmpresas.result.length);
+    }
+   
+    //devuelve la suma de todos los resultados de una pregunta segun una de sus respuestas
+    sumaResultadosPorPregunta(idPregunta, idRespuesta){
+        let sumatoria = 0;
+        let data = this.getPregunta(idPregunta,idRespuesta);
+        data.result.forEach(element => {
+            sumatoria = sumatoria + parseInt(element.valor,10);
+        })
+        return sumatoria;
     }
     
-    promedioPorRespuesta (idPregunta, idRespuesta){
+    //promedio de algun valor
+    promedioPorResultados(suma){
+        return suma/this.getDatosLen();
+    }
+    porcentajesPorRespuesta (idPregunta, idRespuesta){
         var data = this.getPregunta(idPregunta,idRespuesta);
-        return data.result.length /this.datos.length;
+        return (data.result.length /this.datos.length)*100;
     }
 }
 
