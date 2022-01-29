@@ -21,15 +21,13 @@ router.post('/', async (req, res) => {
             break;
         case 1:
             var ies = IESPreguntas;
-            var cache = Config.getFromCache('estadisticas_ies');
-            if (cache != undefined) { res.status(200).json(responseHandler.validResponse(cache)); return; }
-            //var results = await IESRecolector.getResults(ies);
-            //Config.addToCache('estadisticas_ies', results);
-            res.status(200).json(responseHandler.validResponse('a'));
+            var results = await IESRecolector.getIESResults(ies);
+            res.status(200).json(responseHandler.validResponse(results));
             break;
         case 2:
             break;
         default:
+            // 
             res.status(200).json(responseHandler.errorResponse({ message: 'No se encontro ninguna respuesta' }));
             break;
     }

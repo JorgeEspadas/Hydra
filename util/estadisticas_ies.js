@@ -4,7 +4,6 @@ const Respuestas = require('../models/Respuestas');
 class IESRecolector {
   static getStudentTotalPerResponse = (resultado, idPregunta, idRespuesta) => {
     var totalHits = 0;
-
     resultado.forEach((item, index) => {
       var resArray = item.respuestas;
       resArray.forEach((res, i) => {
@@ -13,13 +12,64 @@ class IESRecolector {
         }
       });
     });
-
     return totalHits;
   }
 
+  static getIESResults = async (data) => {
+    var respuestaData = await Respuestas.find({ 'rol': '1' });
+    var statistics = {
+      total_de_respuestas: respuestaData.length,
+      metadata: []
+    };
+
+    // primera categoria, 5, 6, 9.
+    data.forEach((categoria, categoriaIndex) => {
+      var payload = {
+        categoria: categoria.header,
+        indicadores: []
+      };
+
+      (categoria.indicadores).forEach((indicador, indicadorIndex) => {
+        
+        var indicadorData = {
+          titulo: indicador.titulo,
+          metadata: []
+        };
+
+        (indicador.preguntas).forEach((pregunta, preguntaIndex) => {
+          // PREGUNTA MODULO, ID, TEXTO, RESPUESTAS ARRAY.
+          var preguntaPayload = {
+            id: pregunta.id,
+            texto: pregunta.texto,
+            resultados: []
+          };
+
+          if (pregunta.modulo !== 'abierta') {
+            (pregunta.respuestas).forEach((respuesta, respuestaIndex) => {
+               var respuestaPayload = {
+                 texto: respuesta.texto,
+                 total: this.getStudentTotalPerResponse(respuestaData, pregunta.id, respuesta.valor)
+               };
+               (preguntaPayload.resultados).push(respuestaPayload);
+            });
+          }
+          
+          (indicadorData.metadata).push(preguntaPayload);
+        });
+        // GUARDAMOS LOS RESULTADOS EN EL PAYLOAD DE INDICADORDATA.
+        (payload.indicadores).push(indicadorData);
+      });
+      (statistics.metadata).push(payload);
+    });
+    return statistics;
+  }
+
   static getStudentResults = async (data, entidad) => {
-    var statistics = [];
+    var statistics = {};
     var respuestaData = await Respuestas.find({ '$and': [{ 'rol': '0' }, { 'entidad': entidad }] });
+    statistics.entidad = entidad;
+    statistics.total_de_respuestas = respuestaData.length;
+    statistics.metadata = [];
 
     data[0]["indicadores"].forEach(async (indicador, indicadorIndex) => {
       // titulo del indicador
@@ -38,7 +88,7 @@ class IESRecolector {
           };
           payload.resultados.push(rp)
         });
-        statistics.push(payload);
+        statistics.metadata.push(payload);
       });
     });
     return statistics;
