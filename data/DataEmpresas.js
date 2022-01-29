@@ -719,7 +719,7 @@ const preguntas_empresas = [
                     },
                     {
                         opcion_id:3,
-                        abierta:false,
+                        abierta:true,
                         texto:"Otros. Especifique"
                     }
                 ]
@@ -2132,7 +2132,7 @@ const preguntas_empresas = [
                     {
                         opcion_id:2,
                         abierta:false,
-                        texto:"a empresa está certificada en CMMI"
+                        texto:"La empresa está certificada en CMMI"
                     },
                     {
                         opcion_id:3,
@@ -2470,11 +2470,6 @@ const preguntas_empresas = [
                         opcion_id:5,
                         abierta:true,
                         texto:"Otro, especifique:"
-                    },
-                    {
-                        opcion_id:6,
-                        abierta:false,
-                        texto:"Ninguno"
                     }
                 ]
             }, 
@@ -2521,11 +2516,6 @@ const preguntas_empresas = [
                         opcion_id:4,
                         abierta:false,
                         texto:"Otro, especifique:"
-                    },
-                    {
-                        opcion_id:5,
-                        abierta:false,
-                        texto:"Ninguno"
                     }
                 ]
             }
