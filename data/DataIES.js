@@ -2914,7 +2914,7 @@ const IESestudiantes = [
                     {
                         modulo: "multiple",
                         id: "st_11",
-                        texto: "¿Cómo valora el proceso de enseñanzaaprendizaje recibido?",
+                        texto: "¿Cómo valora el proceso de enseñanza-aprendizaje recibido?",
                         respuestas: [{
                             valor: 1,
                             texto: "Totalmente de acuerdo"

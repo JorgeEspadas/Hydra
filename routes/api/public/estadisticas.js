@@ -11,7 +11,7 @@ const Entidad = require('../../../models/Entidad');
 router.post('/', async (req, res) => {
     var entidad = req.body.entidad;
 
-    if (entidad == undefined) { res.status(200).json(responseHandler.errorResponse({ message: 'No se encontro ninguna respuesta' })); return; }
+    if (entidad == undefined) { res.status(200).json(responseHandler.errorResponse({ message: 'No se selecciono una entidad' })); return; }
 
     var ies = IESestudiantes;
     var results = await IESRecolector.getStudentResults(ies, entidad);
