@@ -1,4 +1,3 @@
-const Config = require("./config");
 const Respuestas = require('../models/Respuestas');
 
 class IESRecolector {
@@ -22,7 +21,6 @@ class IESRecolector {
       metadata: []
     };
 
-    // primera categoria, 5, 6, 9.
     data.forEach((categoria, categoriaIndex) => {
       var payload = {
         categoria: categoria.header,
@@ -40,8 +38,9 @@ class IESRecolector {
           // PREGUNTA MODULO, ID, TEXTO, RESPUESTAS ARRAY.
           var preguntaPayload = {
             id: pregunta.id,
+            tipo: pregunta.modulo,
             texto: pregunta.texto,
-            resultados: []
+            resultados: [],
           };
 
           if (pregunta.modulo !== 'abierta') {
@@ -50,6 +49,7 @@ class IESRecolector {
                  texto: respuesta.texto,
                  total: this.getStudentTotalPerResponse(respuestaData, pregunta.id, respuesta.valor)
                };
+
                (preguntaPayload.resultados).push(respuestaPayload);
             });
           }
