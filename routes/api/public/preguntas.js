@@ -3,13 +3,7 @@ const responseHandler = require('../../../util/web_responses');
 const Config = require('../../../util/config');
 const Temporal = require('../../../models/Entidad');
 const Respuestas = require('../../../models/Respuestas');
-const IESRecolector = require('../../../util/estadisticas_ies');
 const router = express.Router();
-
-router.post('/lookup', async (req, res) => {
-    var x = await IESRecolector.getStudentData('Universidad Autonoma de Campeche', 'st_4', '1');
-        res.status(200).json({test: 'a', x});
-});
 
 router.post('/', async (req, res) => {
     var hash = req.body.hash;
