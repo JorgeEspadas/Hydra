@@ -10,8 +10,8 @@ router.get('/resEmpresas', async (req, res) => {
     try{
         datos = await Respuestas.find({"rol":2});
         result = new Estadisticas_empresas(datos);
-        //res.status(200).json(responseHandler.validResponse(resultadosEstadisticas()));
-        res.status(200).json(responseHandler.validResponse(result.promedioPorResultados(result.sumaResultadosPorPregunta("empresas_30","1"))));
+        //res.status(200).json(result.moda("empresas_45"));
+        res.status(200).json(responseHandler.validResponse(resultadosEstadisticas()));
     }catch(error){
         res.status(200).json(responseHandler.errorResponse({message: error.toString()}));
     }
@@ -25,7 +25,8 @@ const resultadosEstadisticas = () => {
             contenido: "Promedio de Antigüedad de las empresa",
             idPregunta:"empresas_1",
             resultado:result.promedioAntiguedadEmpresas(),
-            unidad_de_medida:"Años"
+            unidad_de_medida:"Años",
+            promedio:true
         },
         {
             indicador:"2",
@@ -220,7 +221,7 @@ const resultadosEstadisticas = () => {
             unidad_de_medida:"Empresas"
         },
         {
-            indicador:"5",
+            indicador:"5", 
             pregunta:"Número TOTAL de empleados por tipo de contrato",
             contenido: "Empleados de la industria de software por tipo de contrato",
             idPregunta:"empresas_5",
@@ -232,23 +233,50 @@ const resultadosEstadisticas = () => {
             pregunta:"Dependientes",
             contenido: "Porcentaje de  empleados dependientes EN LA EMPRESA",
             idPregunta:"empresas_5",
-            resultado:result.porcentajesPorRespuesta("empresas_5","1"),
+            resultado:result.resultadosTablas("empresas_5","1"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },  
+        {
+            indicador:"5.1",
+            pregunta:"Dependientes",
+            contenido: "Porcentaje de  empleados dependientes POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_5",
+            resultado:result.resultadoTablasAllEmpresas("empresas_5","1"),
             unidad_de_medida:"Empleados"
-        },
+        },  
         {
             indicador:"5.2",
             pregunta:"Independientes",
             contenido: "Porcentaje de  empleados Independientes EN LA EMPRESA ",
             idPregunta:"empresas_5",
-            resultado:result.porcentajesPorRespuesta("empresas_5","2"),
-            unidad_de_medida:"Empleados"
+            resultado:result.resultadosTablas("empresas_5","2"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
         },
+        {
+            indicador:"5.2",
+            pregunta:"Independientes",
+            contenido: "Porcentaje de  empleados independientes POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_5",
+            resultado:result.resultadoTablasAllEmpresas("empresas_5","2"),
+            unidad_de_medida:"Empleados"
+        },  
         {
             indicador:"5.3",
             pregunta:"Aprendices/Practicantes",
             contenido: "Porcentaje de empleados Aprendices/Practicantes EN LA EMPRESA",
             idPregunta:"empresas_5",
-            resultado:result.porcentajesPorRespuesta("empresas_5","3"),
+            resultado:result.resultadosTablas("empresas_5","3"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"5.3",
+            pregunta:"Aprendices/Practicantes",
+            contenido: "Porcentaje de  empleados aprendices/practicantes POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_5",
+            resultado:result.resultadoTablasAllEmpresas("empresas_5","3"),
             unidad_de_medida:"Empleados"
         },
         {
@@ -256,7 +284,16 @@ const resultadosEstadisticas = () => {
             pregunta:"Temporales",
             contenido: "Porcentaje de empleados temporales EN LA EMPRESA ",
             idPregunta:"empresas_5",
-            resultado:result.porcentajesPorRespuesta("empresas_5","4"),
+            resultado:result.resultadosTablas("empresas_5","4"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"5.4",
+            pregunta:"Temporales",
+            contenido: "Porcentaje de  empleados temporales POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_5",
+            resultado:result.resultadoTablasAllEmpresas("empresas_5","4"),
             unidad_de_medida:"Empleados"
         },
         {
@@ -272,7 +309,16 @@ const resultadosEstadisticas = () => {
             pregunta:"Educación básica",
             contenido: "Porcentaje del Número de empleados con Educación básica, por empresa",
             idPregunta:"empresas_6",
-            resultado:result.porcentajesPorRespuesta("empresas_6","1"),
+            resultado:result.resultadosTablas("empresas_6","1"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"6.1",
+            pregunta:"Educación básica",
+            contenido: "Porcentaje del Número de empleados con Educación básica, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_6",
+            resultado:result.resultadoTablasAllEmpresas("empresas_6","1"),
             unidad_de_medida:"Empleados"
         },
         {
@@ -280,7 +326,16 @@ const resultadosEstadisticas = () => {
             pregunta:"Educación Técnica",
             contenido: "Porcentaje del Número de empleados con Educación técnica.",
             idPregunta:"empresas_6",
-            resultado:result.porcentajesPorRespuesta("empresas_6","2"),
+            resultado:result.resultadosTablas("empresas_6","2"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"6.2",
+            pregunta:"Educación Técnica",
+            contenido: "Porcentaje del Número de empleados con Educación técnica, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_6",
+            resultado:result.resultadoTablasAllEmpresas("empresas_6","2"),
             unidad_de_medida:"Empleados"
         },
         {
@@ -288,7 +343,16 @@ const resultadosEstadisticas = () => {
             pregunta:"Licenciatura",
             contenido: "Porcentaje del Número de empleados con licenciatura",
             idPregunta:"empresas_6",
-            resultado:result.porcentajesPorRespuesta("empresas_6","3"),
+            resultado:result.resultadosTablas("empresas_6","3"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"6.3",
+            pregunta:"Licenciatura",
+            contenido: "Porcentaje del Número de empleados con licenciatura, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_6",
+            resultado:result.resultadoTablasAllEmpresas("empresas_6","3"),
             unidad_de_medida:"Empleados"
         },
         {
@@ -296,7 +360,16 @@ const resultadosEstadisticas = () => {
             pregunta:"Postgrado",
             contenido: "Porcentaje del Número de empleados con postgrado",
             idPregunta:"empresas_6",
-            resultado:result.porcentajesPorRespuesta("empresas_6","4"),
+            resultado:result.resultadosTablas("empresas_6","4"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"6.4",
+            pregunta:"Postgrado",
+            contenido: "Porcentaje del Número de empleados con Postgrado, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_6",
+            resultado:result.resultadoTablasAllEmpresas("empresas_6","4"),
             unidad_de_medida:"Empleados"
         },
         {
@@ -312,24 +385,51 @@ const resultadosEstadisticas = () => {
             pregunta:"Educación Técnica",
             contenido: "Porcentaje del Número de programadores con Educación técnica.",
             idPregunta:"empresas_7",
-            resultado:result.porcentajesPorRespuesta("empresas_7","1"),
-            unidad_de_medida:"Programadores"
+            resultado:result.resultadosTablas("empresas_7","1"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"7.1",
+            pregunta:"Educación Técnica",
+            contenido: "Porcentaje del Número de programadores con Educación técnica, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_7",
+            resultado:result.resultadoTablasAllEmpresas("empresas_7","1"),
+            unidad_de_medida:"Empleados"
         },
         {
             indicador:"7.2",
             pregunta:"Licenciatura",
             contenido: "Porcentaje del Número de programadores con licenciatura",
             idPregunta:"empresas_7",
-            resultado:result.porcentajesPorRespuesta("empresas_7","2"),
-            unidad_de_medida:"Programadores"
+            resultado:result.resultadosTablas("empresas_7","2"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"7.2",
+            pregunta:"Licenciatura",
+            contenido: "Porcentaje del Número de programadores con licenciatura, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_7",
+            resultado:result.resultadoTablasAllEmpresas("empresas_7","2"),
+            unidad_de_medida:"Empleados"
         },
         {
             indicador:"7.3",
             pregunta:"Postgrado",
             contenido: "Porcentaje del Número de programadores con Postgrado",
             idPregunta:"empresas_7",
-            resultado:result.porcentajesPorRespuesta("empresas_7","3"),
-            unidad_de_medida:"Programadores"
+            resultado:result.resultadosTablas("empresas_7","3"),
+            unidad_de_medida:"Empleados",
+            isTabla:true
+        },
+        {
+            indicador:"7.3",
+            pregunta:"Postgrado",
+            contenido: "Porcentaje del Número de programadores con Educación básica, POR TODA LA INDUSTRIA DE SOTFWARE",
+            idPregunta:"empresas_7",
+            resultado:result.resultadoTablasAllEmpresas("empresas_7","3"),
+            unidad_de_medida:"Empleados"
         },
         {
             indicador:"8",
@@ -1320,7 +1420,7 @@ const resultadosEstadisticas = () => {
             pregunta:"Número de computadoras personales",
             contenido: "Promedio de equipos de computo que cuentan las empresas",
             idPregunta:"empresas_30",
-            resultado:result.result.promedioPorResultados(result.sumaResultadosPorPregunta("empresas_30","2")),
+            resultado:result.promedioPorResultados(result.sumaResultadosPorPregunta("empresas_30","2")),
             unidad_de_medida:"equipos"
         },
         {
@@ -1480,8 +1580,9 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Qué departamentos para los proyectos de investigación y desarrollo posee su empresa? (puede seleccionar más de uno).",
             contenido: "Nivel de innovación de las empresas",
             idPregunta:"empresas_35",
-            resultado:result.porcentajesPorRespuesta("empresas_35","1"),
-            unidad_de_medida:"Nivel de innovación"
+            resultado:result.tabla_35("empresas_35"),
+            unidad_de_medida:"Nivel de innovación",
+            isTabla:true
         },
         {
             indicador:"36",
@@ -1536,7 +1637,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuántos de sus productos han sido certificados en total?",
             contenido: "Promedio de productos certificados por todas las empresas.",
             idPregunta:"empresas_37.1",
-            resultado:(result.sumaResultadosPorPregunta("empresas_37.1", "1")/getResLen("empresas_37","1")),
+            resultado:(result.sumaResultadosPorPregunta("empresas_37.1", "1")/result.getResLen("empresas_37","1")),
             unidad_de_medida:"Productos certificados"
         },
         {
@@ -1552,7 +1653,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuántas patentes ha solicitado en total?",
             contenido: "Promedio de patentes solicitados por las empresas.",
             idPregunta:"empresas_38.1",
-            resultado:(result.sumaResultadosPorPregunta("empresas_38.1", "1")/getResLen("empresas_38","1")),
+            resultado:(result.sumaResultadosPorPregunta("empresas_38.1", "1")/result.getResLen("empresas_38","1")),
             unidad_de_medida:"Patentes solisitados"
         },
         {
@@ -1568,7 +1669,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuántas patentes ha obtenido en total?",
             contenido: "Promedio de patentes obtenidos por las empresas.",
             idPregunta:"empresas_39.1",
-            resultado:(result.sumaResultadosPorPregunta("empresas_39.1", "1")/getResLen("empresas_39","1")),
+            resultado:(result.sumaResultadosPorPregunta("empresas_39.1", "1")/result.getResLen("empresas_39","1")),
             unidad_de_medida:"Patentes obtenidos"
         },
         {
@@ -1584,7 +1685,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuántos productos o tecnologías han obtenido la concesión de licencia en total?",
             contenido: "Promedio de productos o tecnologias que han obtenido la concesión de licencias por las empresas.",
             idPregunta:"empresas_40.1",
-            resultado:(result.sumaResultadosPorPregunta("empresas_40.1", "1")/getResLen("empresas_40","1")),
+            resultado:(result.sumaResultadosPorPregunta("empresas_40.1", "1")/result.getResLen("empresas_40","1")),
             unidad_de_medida:"Productos o tecnologias que han obtenido la concesión de licencias"
         },
         {
@@ -1600,7 +1701,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuántos procesos certificados ha obtenido?",
             contenido: "Numero total de procesos certificados por las empresas",
             idPregunta:"empresas_41.1",
-            resultado:(result.sumaResultadosPorPregunta("empresas_41.1", "1")/getResLen("empresas_41","1")),
+            resultado:(result.sumaResultadosPorPregunta("empresas_41.1", "1")/result.getResLen("empresas_41","1")),
             unidad_de_medida:"Procesos certificados"
         },
         {
@@ -1616,7 +1717,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuáles son los principales lenguajes de programación utilizados por la empresa?",
             contenido: "Los cinco principales modas de lenguajes de programación utilizados por las emprezas.",
             idPregunta:"empresas_43",
-            resultado:result.porcentajesPorRespuesta("empresas_",""),
+            resultado:result.moda("empresas_43",5),
             unidad_de_medida:""
         },
         {
@@ -1624,7 +1725,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuáles son los principales administradores de base de datos utilizados por la empresa?",
             contenido: "Las cinco principales modas de administradores de base de datos utilizados por las empresas",
             idPregunta:"empresas_44",
-            resultado:result.porcentajesPorRespuesta("empresas_",""),
+            resultado:result.moda("empresas_44",5),
             unidad_de_medida:"DBA"
         },
         {
@@ -1632,7 +1733,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Tecnología para desarrollo  en la nube utilizados por la empresa?",
             contenido: "Las cinco principales modas de las tecnologias para el desarrollo en la nube utilizado por la empresa.",
             idPregunta:"empresas_45",
-            resultado:result.porcentajesPorRespuesta("empresas_",""),
+            resultado:result.moda("empresas_45",5),
             unidad_de_medida:"tecnologias para el desarrollo en la nube"
         },
         {
@@ -2888,7 +2989,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuáles son las estrategias de marketing que utiliza la empresa?",
             contenido: "Moda de las estrategias de marketing que utiliza las empresas.",
             idPregunta:"empresas_74",
-            resultado:"",
+            resultado:result.moda("empresas_74",1),
             unidad_de_medida:"Estrategias de marketing"
         },
         {
@@ -2976,7 +3077,7 @@ const resultadosEstadisticas = () => {
             pregunta:"¿Cuáles son las métricas de marketing y ventas que se utilizan en su empresas?",
             contenido: "Métricas de marketing y ventas que utilizan las empresas.",
             idPregunta:"empresas_77",
-            resultado:"",
+            resultado:result.moda("empresas_77",1),
             unidad_de_medida:"Metricas de marketing"
         },
     ]
