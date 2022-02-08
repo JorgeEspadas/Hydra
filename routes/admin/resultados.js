@@ -9,12 +9,12 @@ router.post('/', async (req, res) => {
 
     switch (rol) {
         case 0:
-            var resultados = await IESRecolector.getIESResults(IESestudiantes);
+            var resultados = await IESRecolector.getIESResults(IESestudiantes, '0');
             res.status(200).json(validResponse(resultados));
             break;
         case 1:
             // retornar resultados de IES
-            var resultados = await IESRecolector.getIESResults(IESPreguntas);
+            var resultados = await IESRecolector.getIESResults(IESPreguntas, '1');
             res.status(200).json(validResponse(resultados));
             break;
         case 2:

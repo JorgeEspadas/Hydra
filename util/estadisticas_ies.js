@@ -14,8 +14,8 @@ class IESRecolector {
     return totalHits;
   }
 
-  static getIESResults = async (data) => {
-    var respuestaData = await Respuestas.find({ 'rol': '1' });
+  static getIESResults = async (data, rol) => {
+    var respuestaData = await Respuestas.find({ 'rol': rol });
     var statistics = {
       total_de_respuestas: respuestaData.length,
       metadata: []
