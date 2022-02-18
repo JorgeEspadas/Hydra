@@ -1718,7 +1718,8 @@ const resultadosEstadisticas = () => {
             contenido: "Los cinco principales modas de lenguajes de programación utilizados por las emprezas.",
             idPregunta:"empresas_43",
             resultado:result.moda("empresas_43",5),
-            unidad_de_medida:""
+            unidad_de_medida:"Lenguajes de programación",
+            isTabla:true
         },
         {
             indicador:"44",
@@ -1726,7 +1727,8 @@ const resultadosEstadisticas = () => {
             contenido: "Las cinco principales modas de administradores de base de datos utilizados por las empresas",
             idPregunta:"empresas_44",
             resultado:result.moda("empresas_44",5),
-            unidad_de_medida:"DBA"
+            unidad_de_medida:"DBA",
+            isTabla:true
         },
         {
             indicador:"45",
@@ -1734,7 +1736,8 @@ const resultadosEstadisticas = () => {
             contenido: "Las cinco principales modas de las tecnologias para el desarrollo en la nube utilizado por la empresa.",
             idPregunta:"empresas_45",
             resultado:result.moda("empresas_45",5),
-            unidad_de_medida:"tecnologias para el desarrollo en la nube"
+            unidad_de_medida:"tecnologias para el desarrollo en la nube",
+            isTabla:true
         },
         {
             indicador:"46",
@@ -2990,7 +2993,8 @@ const resultadosEstadisticas = () => {
             contenido: "Moda de las estrategias de marketing que utiliza las empresas.",
             idPregunta:"empresas_74",
             resultado:result.moda("empresas_74",1),
-            unidad_de_medida:"Estrategias de marketing"
+            unidad_de_medida:"Estrategias de marketing",
+            isTabla:true
         },
         {
             indicador:"75",
@@ -3078,7 +3082,8 @@ const resultadosEstadisticas = () => {
             contenido: "Métricas de marketing y ventas que utilizan las empresas.",
             idPregunta:"empresas_77",
             resultado:result.moda("empresas_77",1),
-            unidad_de_medida:"Metricas de marketing"
+            unidad_de_medida:"Metricas de marketing",
+            isTabla:true
         },
     ]
 

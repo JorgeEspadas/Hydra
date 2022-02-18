@@ -28,7 +28,7 @@ class DatosEmpresas{
     }
 
     getResLen(idPregunta, idRespuesta){
-        return this.getPregunta(idPregunta, idRespuesta).length;
+        return this.getPregunta(idPregunta, idRespuesta).result.length;
     }
 
     getDatosLen(){
