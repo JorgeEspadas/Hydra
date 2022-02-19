@@ -1,0 +1,13 @@
+
+{
+    "response" : "BAD",
+    "data" : {
+        "exception" : {
+            "mensaje" : "aqui no hacemos eso"
+        }
+    },
+    "response" : "OK",
+    "data" : {
+        "datos" : "si"
+    }
+}

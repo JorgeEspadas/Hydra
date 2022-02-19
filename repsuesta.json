@@ -1,0 +1,26 @@
+{
+    "response" : "OK",
+    "data" : {
+        "preguntas" : [
+            {
+                "id" : "empresas_68",
+                "tipo" : "Empresa || IES",
+                "texto" : "blablabla",
+                "modulo" : "multiple",
+                "multiples" : true,
+                "respuestas" : [
+                    {
+                        "id_respuesta" : 1,
+                        "texto" : "blablarespuesta",
+                        "siguiente" : "empresas_69"
+                    },
+                    {
+                        "id_respuesta" : 2,
+                        "texto" : "blablarespuesta2"
+                    }
+                ],
+                "siguiente" : "empresas_70"
+            }
+        ]
+    }
+}
