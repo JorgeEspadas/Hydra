@@ -20,9 +20,9 @@ app.use('/usuario', usuarioRoute);
 app.use('/auth', authRoute);
 app.use('/admin', adminRoute);
 
-app.get('/', (req, res) => {
-   res.sendFile('./signature.html',{root: __dirname});
-});
+// app.get('/', (req, res) => {
+//    res.sendFile('./signature.html',{root: __dirname});
+// });
 
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true}, () => log.normal('SERVER', 'MongoDB conetado: '+database));
 
