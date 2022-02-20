@@ -51,3 +51,8 @@ La autenticacion funciona por JWT Tokens que se reciben en el header bajo la lla
  -  Iniciar quitar el ".example" del ".env" y configurarlo con los datos propios.
  -  Ejecutar "_**npm i**_" o "_**npm install**_" en la terminal en la raiz del proyecto
  -  Para correr el proyecto se ejecuta "_**nodemon app.js**_" en la raiz del proyecto (development branch).
+
+ # Deploy en Docker
+- Tener docker instalado
+- Ejecutar docker build -t "hydra" .       en la raiz del proyecto. (donde esta el Dockerfile)
+- Iniciar desde docker.
