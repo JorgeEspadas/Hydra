@@ -1,6 +1,6 @@
 const IESPreguntas = [
     {
-        header: "Institucion de Educacion Superior",
+        header: "Institución Educativa de nivel Superior (IES)",
         indicadores: [
             {
                 titulo: "Datos Generales de la IES",
@@ -17,7 +17,7 @@ const IESPreguntas = [
                     },
                     {
                         modulo: "abierta",
-                        texto: "Ubicacion de la IES",
+                        texto: "Ubicación de la IES",
                         id: "ubicacion_IES"
                     },
                     {
@@ -32,11 +32,11 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Subsistema de universidades publicas"
+                                texto: "Subsistema de universidades públicas"
                             },
                             {
                                 valor: 2,
-                                texto: "Subsistema de educacion tecnologica"
+                                texto: "Subsistema de educación tecnológica"
                             },
                             {
                                 valor: 3,
@@ -47,7 +47,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_6",
-                        texto: "La cantidad de Programas Educativos (de nivel superior) en Ciencias de la computacion que oferta la IES es de",
+                        texto: "La cantidad de programas educativos de nivel superior en ciencias de la computación que oferta es de:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -67,24 +67,24 @@ const IESPreguntas = [
                             },
                             {
                                 valor: 5,
-                                texto: "Mas de 9"
+                                texto: "Más de 9"
                             }
                         ]
                     },
                     {
                         modulo: "abierta",
                         id: "ies_7",
-                        texto: "Nombre(s) del PE(s) en ciencias de la computacion (solo si la respuesta anterior es distinta de 0)"
+                        texto: "Nombre(s) del PE(s) en ciencias de la computación (solo si la respuesta anterior es distinta de 0)"
                     },
                     {
                         modulo: "abierta",
                         id: "ies_8",
-                        texto: "La duracion por ciclos escolares del PE(s) es de (solo si la respuesta anterior es distinta a 0)"
+                        texto: "La duración por ciclos escolares (semestral, trimestral, bimestral, etc.) es de:"
                     },
                     {
                         modulo: "multiple",
                         id: "ies_9",
-                        texto: "La cantidad de Programas Educativos (de nivel posgrado) en Ciencias de la computacion que oferta la IES es de",
+                        texto: "La cantidad de Programas Educativos (de nivel posgrado) en Ciencias de la computación que oferta la IES es de",
                         respuestas: [
                             {
                                 valor: 1,
@@ -104,7 +104,7 @@ const IESPreguntas = [
                             },
                             {
                                 valor: 5,
-                                texto: "Mas de 9"
+                                texto: "Más de 9"
                             }
                         ]
                     },
@@ -112,12 +112,12 @@ const IESPreguntas = [
                 ]
             },
             {
-                titulo: "Instalaciones Fisicas",
+                titulo: "Instalaciones Físicas",
                 preguntas: [
                     {
                         modulo: "multiple",
                         id: "ies_10",
-                        texto: "La IES cuenta con un espacio y servicio de informacion al visitante",
+                        texto: "La IES cuenta con un espacio y servicio de información al visitante:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -144,7 +144,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_11",
-                        texto: "La IES cuenta con espacio y servicio de cafeteria adecuados para cubrir la demanda del personal administrativo, docente y estudiantil",
+                        texto: "La IES cuenta con espacio y servicio de cafetería adecuados para cubrir la demanda del personal administrativo, docente y estudiantil:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -171,7 +171,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_12",
-                        texto: "La IES cuenta con auditorio(s) y/o salon de eventos para actividades academicas",
+                        texto: "La IES cuenta con auditorio(s) y/o salón de eventos para actividades académicas:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -225,7 +225,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_14",
-                        texto: "La IES cuenta con areas verdes en toda su instalacion",
+                        texto: "La IES cuenta con áreas verdes en toda su instalación:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -252,7 +252,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_15",
-                        texto: "La IES cuenta con biblioteca y su acceso está disponible en horarios y periodos de tiempo considerables",
+                        texto: "La IES cuenta con biblioteca y su acceso está disponible en horarios y periodos de tiempo considerables en turno matutino y vespertino",
                         respuestas: [
                             {
                                 valor: 1,
@@ -392,11 +392,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_20",
-                        texto: "La IES cuenta con un portafolio de proyectos priorizado y alineados a los objetivos de la Institucion",
+                        texto: "La IES cuenta con un portafolio de proyectos priorizado y alineados a los objetivos de la Institución",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -411,7 +411,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_21",
-                        texto: "La cantidad promedio de proyectos anualmente en la IES es de: (Solo si respondiste 'Si' a la pregunta anterior)",
+                        texto: "La cantidad promedio de proyectos anualmente en la IES es de: (Solo si respondiste 'Sí' a la pregunta anterior)",
                         respuestas: [
                             {
                                 valor: 1,
@@ -438,11 +438,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_22",
-                        texto: "En la IES, la alta direccion (rector o secretarias) participa en la priorizacion de los proyectos del portafolio",
+                        texto: "En la IES, la alta dirección (rector o secretarias) participa en la priorización de los proyectos del portafolio",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -457,11 +457,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_23",
-                        texto: "La IES tiene implementada una metodologia de administracion de proyectos",
+                        texto: "La IES tiene implementa una metodología de administración de proyectos",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -476,7 +476,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_24",
-                        texto: "¿Qué metodología de administración de proyectos tiene implementada? (Solo si respondiste 'Si' a la pregunta anterior)",
+                        texto: "¿Qué metodología de administración de proyectos tiene implementada? (Solo si respondiste 'Sí' a la pregunta anterior)",
                         respuestas: [
                             {
                                 valor: 1,
@@ -484,7 +484,7 @@ const IESPreguntas = [
                             },
                             {
                                 valor: 2,
-                                texto: "Metodologia propia"
+                                texto: "Metodología propia"
                             },
                             {
                                 valor: 3,
@@ -499,7 +499,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -514,7 +514,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -529,7 +529,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -544,7 +544,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -559,7 +559,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -571,7 +571,7 @@ const IESPreguntas = [
                 ]
             },
             {
-                titulo: "Nuevas tecnologias",
+                titulo: "Nuevas tecnologías",
                 preguntas: [
                     {
                         modulo: "multiple",
@@ -580,19 +580,19 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
-                                texto: "En proceso de implementacion de un proyecto"
+                                texto: "En proceso de implementación de un proyecto"
                             },
                             {
                                 valor: 3,
-                                texto: "En exploracion de esa tecnologia"
+                                texto: "En exploración de esa tecnología"
                             },
                             {
                                 valor: 4,
-                                texto: "No se ha considerado ningun proyecto con esa tecnologia"
+                                texto: "No se ha considerado ningún proyecto con esa tecnología"
                             }
                         ]
                     },
@@ -603,7 +603,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -626,7 +626,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -649,7 +649,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -672,7 +672,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -695,7 +695,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -718,7 +718,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -741,7 +741,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, se cuenta con una o varias soluciones liberadas"
+                                texto: "Sí, se cuenta con una o varias soluciones liberadas"
                             },
                             {
                                 valor: 2,
@@ -1127,7 +1127,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_51",
-                        texto: "La IES promueva actividades extracurriculares no académicas",
+                        texto: "La IES promueve actividades extracurriculares no académicas",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1159,16 +1159,16 @@ const IESPreguntas = [
         header: "Programa Educativo",
         indicadores: [
             {
-                titulo: "Datos Generales del PE",
+                titulo: "Datos Generales del Programa Educativo (PE)",
                 preguntas: [
                     {
                         modulo: "abierta",
-                        texto: "Nombre de la PE en ciencias de la computacion",
+                        texto: "Nombre de la PE en ciencias de la computación",
                         id: "ies_52"
                     },
                     {
                         modulo: "multiple",
-                        texto: "La duracion del PE es",
+                        texto: "La duración del PE es",
                         id: "ies_53",
                         respuestas: [
                             {
@@ -1188,7 +1188,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_54",
-                        texto: "El PE en ciencias de la computacion ofertado se cursa en modalidad",
+                        texto: "El PE en ciencias de la computación ofertado se cursa en modalidad",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1207,7 +1207,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_55",
-                        texto: "El Mapa curricular del PE esta disponible al publico en general",
+                        texto: "El Mapa curricular del PE está disponible al público en general",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1234,11 +1234,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_56",
-                        texto: "El servicio social es un requisito de caracter obligatorio para el PE en ciencias de la computacion",
+                        texto: "El servicio social es un requisito de carácter obligatorio para el PE en ciencias de la computación",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -1249,11 +1249,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_57",
-                        texto: "Cuantos convenios con organizaciones públicas o privadas cuenta para el alumnado realice su servicio social (área de ciencias de la computación)",
+                        texto: "Cuántos convenios con organizaciones públicas o privadas cuenta para el alumnado realice su servicio social (área en ciencias de la computación)",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Mas de 100"
+                                texto: "Más de 100"
                             },
                             {
                                 valor: 2,
@@ -1276,11 +1276,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_58",
-                        texto: "Cuantos de estos convenios aun son vigentes",
+                        texto: "Cuántos de estos convenios aún son vigentes",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Mas de 100"
+                                texto: "Más de 100"
                             },
                             {
                                 valor: 2,
@@ -1307,7 +1307,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -1318,11 +1318,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_60",
-                        texto: "Cuantos convenios con organizaciones públicas o privadas cuenta para el alumnado realice sus prácticas o residencia profesional (área de ciencias de la computación)",
+                        texto: "Cuántos convenios con organizaciones públicas o privadas cuenta para el alumnado realice sus prácticas o residencia profesional (área de ciencias de la computación)",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Mas de 100"
+                                texto: "Más de 100"
                             },
                             {
                                 valor: 2,
@@ -1345,11 +1345,11 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_61",
-                        texto: "Cuantos de estos convenios aun son vigentes",
+                        texto: "Cuántos de estos convenios aún son vigentes",
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Mas de 100"
+                                texto: "Más de 100"
                             },
                             {
                                 valor: 2,
@@ -1372,7 +1372,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_62",
-                        texto: "La opcion de Titulacion mas frecuente elegida por estudiantes del PE en ciencias de la computacion es",
+                        texto: "La opción de Titulación más frecuente elegida por estudiantes del PE en ciencias de la computación es",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1388,11 +1388,11 @@ const IESPreguntas = [
                             },
                             {
                                 valor: 4,
-                                texto: "Diplomado o seminario de Titulacion"
+                                texto: "Diplomado o seminario de Titulación"
                             },
                             {
                                 valor: 5,
-                                texto: "Estudios de Maestria"
+                                texto: "Estudios de Maestría"
                             },
                             {
                                 valor: 6,
@@ -1407,7 +1407,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_63",
-                        texto: "El perfil de egreso del PE en ciencias de la computacion tiene una relacion directa con la industria del software",
+                        texto: "El perfil de egreso del PE en ciencias de la computación tiene una relación directa con la industria del software",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1434,7 +1434,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_64",
-                        texto: "El perfil de egreso del PE en ciencias de la computacion alude al desarrollo de proyectos de software y su vinculacion con la industria",
+                        texto: "El perfil de egreso del PE en ciencias de la computación alude al desarrollo de proyectos de software y su vinculación con la industria",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1542,7 +1542,7 @@ const IESPreguntas = [
                 ]
             },
             {
-                titulo: "Caracteristicas del PE",
+                titulo: "Características del PE",
                 preguntas: [
                     {
                         modulo: "multiple",
@@ -1660,7 +1660,7 @@ const IESPreguntas = [
                             {
                                 valor: 1,
                                 modulo: "abierta",
-                                texto: "Si, especifique"
+                                texto: "Sí, especifique"
                             },
                             {
                                 valor: 2,
@@ -1702,7 +1702,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -1717,7 +1717,7 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si"
+                                texto: "Sí"
                             },
                             {
                                 valor: 2,
@@ -1792,7 +1792,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_78",
-                        texto: "La cantidad de profesores activos en la IES para los PE en ciencias de la computacion con medio tiempo (MT) es de:",
+                        texto: "La cantidad de profesores activos en la IES para los PE en ciencias de la computación con medio tiempo (MT) es de:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1819,7 +1819,7 @@ const IESPreguntas = [
                     {
                         modulo: "multiple",
                         id: "ies_79",
-                        texto: "La cantidad de profesores activos en la IES para los PE en ciencias de la computacion por horas es de:",
+                        texto: "La cantidad de profesores activos en la IES para los PE en ciencias de la computación por horas es de:",
                         respuestas: [
                             {
                                 valor: 1,
@@ -1873,7 +1873,7 @@ const IESPreguntas = [
                 ]
             },
             {
-                titulo: "Perfil academico/profesional",
+                titulo: "Perfil académico/profesional",
                 preguntas: [
                     {
                         modulo: "multiple",
@@ -1882,15 +1882,15 @@ const IESPreguntas = [
                         respuestas: [
                             {
                                 valor: 1,
-                                texto: "Si, en el sitio web institucional"
+                                texto: "Sí, en el sitio web institucional"
                             },
                             {
                                 valor: 2,
-                                texto: "Si, en los folletos o publicidad del PE"
+                                texto: "Sí, en los folletos o publicidad del PE"
                             },
                             {
                                 valor: 3,
-                                texto: "Si, solo al solicitar informacion en la propia IES"
+                                texto: "Sí, solo al solicitar informacion en la propia IES"
                             },
                             {
                                 valor: 4,
@@ -2334,7 +2334,7 @@ const IESPreguntas = [
                 ]
             },
             {
-                titulo: "Capacitacion continua",
+                titulo: "Capacitación continua",
                 preguntas: [
                     {
                         modulo: "multiple",
@@ -2466,7 +2466,7 @@ const IESPreguntas = [
                 ]
             },
             {
-                titulo: "Investigacion y consultoria",
+                titulo: "Investigación y consultoría",
                 preguntas: [
                     {
                         modulo: "multiple",
