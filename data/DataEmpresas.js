@@ -108,7 +108,7 @@ const preguntas_empresas = [
                 texto:"¿Cuáles son los cuatro criterios de contratación de personal más importantes para su empresa?",
                 _id:"empresas_4",
                 tipo:"multiple",
-                multiples:false,
+                multiples:true,
                 opciones:[
                     {
                         opcion_id:1,
@@ -703,7 +703,7 @@ const preguntas_empresas = [
             }, 
             {
                 texto:"¿Cómo realiza la proyección financiera de la empresa?",
-                _id:"empreas_21",
+                _id:"empresas_21",
                 tipo:"multiple",
                 multiples:false,
                 opciones:[
