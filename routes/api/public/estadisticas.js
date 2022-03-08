@@ -26,7 +26,7 @@ router.post('/lista', async(req,res)=>{
     rawUsers.forEach((rawUser, rawUserIndex) => {
         var decodedToken = Config.decryptJWT(rawUser.token);
 
-        if(decodedToken.rol === 1){
+        if(decodedToken.rol === "1"){
             var userListPayload = {
                 nombre: decodedToken.nombre
             }

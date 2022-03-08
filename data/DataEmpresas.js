@@ -2514,7 +2514,7 @@ const preguntas_empresas = [
                     },
                     {
                         opcion_id:4,
-                        abierta:false,
+                        abierta:true,
                         texto:"Otro, especifique:"
                     }
                 ]
