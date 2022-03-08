@@ -2651,7 +2651,7 @@ const IESPreguntas = [
 
 const IESestudiantes = [
     {
-        header: "Institucion de Educacion Superior",
+        header: "Institución de Educación Superior",
         indicadores: [
             {
                 titulo: "Servicios de apoyo al estudiante",
@@ -2917,23 +2917,23 @@ const IESestudiantes = [
                         texto: "¿Cómo valora el proceso de enseñanza-aprendizaje recibido?",
                         respuestas: [{
                             valor: 1,
-                            texto: "Totalmente de acuerdo"
+                            texto: "Excelente"
                         },
                         {
                             valor: 2,
-                            texto: "De acuerdo"
+                            texto: "Muy Bueno"
                         },
                         {
                             valor: 3,
-                            texto: "Ni de acuerdo, ni en desacuerdo"
+                            texto: "Bueno"
                         },
                         {
                             valor: 4,
-                            texto: "En desacuerdo"
+                            texto: "Regular"
                         },
                         {
                             valor: 5,
-                            texto: "Totalmente en desacuerdo"
+                            texto: "Malo"
                         }]
                     },
                     {
@@ -2942,23 +2942,23 @@ const IESestudiantes = [
                         texto: "¿El nivel de calidad en el proceso de enseñanza-aprendizaje es?",
                         respuestas: [{
                             valor: 1,
-                            texto: "Totalmente de acuerdo"
+                            texto: "Excelente"
                         },
                         {
                             valor: 2,
-                            texto: "De acuerdo"
+                            texto: "Muy Bueno"
                         },
                         {
                             valor: 3,
-                            texto: "Ni de acuerdo, ni en desacuerdo"
+                            texto: "Bueno"
                         },
                         {
                             valor: 4,
-                            texto: "En desacuerdo"
+                            texto: "Regular"
                         },
                         {
                             valor: 5,
-                            texto: "Totalmente en desacuerdo"
+                            texto: "Malo"
                         }]
                     },
                     {
